@@ -20,4 +20,8 @@ public class CatService {
     public List<Cat> handleGetFullListOfCats(){
         return catRepository.requestFullCatList();
     }
+
+    public List<Cat> handleGetFullListOfCats(){
+        return catRepository.requestFullCatList();
+    }
 }
