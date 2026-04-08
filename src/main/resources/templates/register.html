@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1>Create Account</h1>
+
+<form th:action="@{/register}" th:object="${UserLogin}" method="post">
+
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" th:field="*{email}"><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" th:field="*{password}"><br><br>
+
+    <button type="submit">Opret</button>
+</form>
+</body>
+</html>

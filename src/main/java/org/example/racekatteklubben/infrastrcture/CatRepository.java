@@ -43,4 +43,9 @@ public class CatRepository implements ICatRepository {
         )
         );
     }
+
+    @Override
+    public void createCat(Cat cat) {
+        System.out.println("Kat oprettet: " + cat.getName());
+    }
 }

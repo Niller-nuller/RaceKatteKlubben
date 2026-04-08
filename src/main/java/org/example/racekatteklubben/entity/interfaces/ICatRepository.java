@@ -8,4 +8,5 @@ import java.util.List;
 public interface ICatRepository {
 
     List<Cat> requestFullCatList();
+    void createCat(Cat cat);
 }
