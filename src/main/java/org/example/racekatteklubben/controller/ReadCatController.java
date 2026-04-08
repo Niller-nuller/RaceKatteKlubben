@@ -18,8 +18,9 @@ public class ReadCatController {
         this.catService = catService;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/cat-list")
     public String catList(Model model){
-
+        model.addAttribute("catList", catService.handleGetFullListOfCats());
+        return "cat-list";
     }
 }

@@ -1,8 +1,11 @@
 package org.example.racekatteklubben.use_case;
 
+import org.example.racekatteklubben.entity.Cat;
 import org.example.racekatteklubben.entity.interfaces.ICatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -12,5 +15,9 @@ public class CatService {
     @Autowired
     public CatService(ICatRepository catRepository) {
         this.catRepository = catRepository;
+    }
+
+    public List<Cat> handleGetFullListOfCats(){
+        return catRepository.requestFullCatList();
     }
 }
