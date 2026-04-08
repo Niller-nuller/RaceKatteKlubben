@@ -1,7 +1,5 @@
 package org.example.racekatteklubben.use_case;
 
-import org.apache.coyote.Request;
-import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.entity.UserLogin;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
