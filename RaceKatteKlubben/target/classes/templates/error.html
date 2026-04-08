@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fejl</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="error-box">
+        <h1 th:text="${status}">Fejl</h1>
+        <p th:text="${error}">Noget gik galt.</p>
+        <a href="/" class="btn">Gå til forsiden</a>
+    </div>
+</div>
+
+</body>
+</html>
