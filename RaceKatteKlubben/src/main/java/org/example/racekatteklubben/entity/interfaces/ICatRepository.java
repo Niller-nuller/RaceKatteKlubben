@@ -1,7 +1,7 @@
 package org.example.racekatteklubben.entity.interfaces;
 
-import org.springframework.stereotype.Repository;
+import org.example.racekatteklubben.entity.Cat;
 
-@Repository
 public interface ICatRepository {
+    void createCat(Cat cat);
 }
