@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
         return "error";
     }
     @ExceptionHandler
-    public String handleException(PasswordValidationException message, Model model) {
+    public String handleException(IllegalArgumentException message, Model model) {
         model.addAttribute("error", message.getMessage());
         return "error";
     }
