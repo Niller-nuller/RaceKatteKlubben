@@ -1,6 +1,6 @@
 package org.example.racekatteklubben.exception;
 
-public class PasswordValidationException extends ValidationTypeException {
+public class PasswordValidationException extends RuntimeException {
     public PasswordValidationException(String message) {
         super(message);
     }

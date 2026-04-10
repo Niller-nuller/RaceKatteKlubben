@@ -1,6 +1,6 @@
 package org.example.racekatteklubben.exception;
 
-public class ValidatorException extends ValidationTypeException {
+public class ValidatorException extends RuntimeException {
     public ValidatorException(String message) {
         super(message);
     }

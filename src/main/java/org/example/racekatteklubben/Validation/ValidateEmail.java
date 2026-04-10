@@ -2,7 +2,7 @@ package org.example.racekatteklubben.Validation;
 
 import org.example.racekatteklubben.entity.UserLogin;
 import org.example.racekatteklubben.exception.EmailValidationException;
-import org.example.racekatteklubben.exception.ValidationTypeException;
+import org.example.racekatteklubben.exception.UserLoginException;
 import org.example.racekatteklubben.exception.ValidatorException;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +16,9 @@ public class ValidateEmail implements ValidationStrat {
 
     @Override
     public void validate(Object object) {
+        if(object == null || object.equals("")){
+            throw new UserLoginException("The login request is empty");
+        }
         if(!(object instanceof UserLogin userLogin)){
             throw new ValidatorException("Wrong Exception thrown please contact an administrator");
         }
