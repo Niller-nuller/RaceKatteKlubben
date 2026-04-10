@@ -7,6 +7,7 @@ public class User {
     private Gender gender;
     private UserLogin usersLogin;
 
+    public User(){}
     public User(String name, int age, Gender gender, UserLogin usersLogin) {
         this.name = name;
         this.age = age;

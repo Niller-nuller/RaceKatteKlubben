@@ -3,11 +3,9 @@ package org.example.racekatteklubben.infrastrcture;
 import org.example.racekatteklubben.entity.Cat;
 import org.example.racekatteklubben.entity.Gender;
 import org.example.racekatteklubben.entity.interfaces.ICatRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.awt.*;
 import java.util.List;
 @Repository
 public class CatRepository implements ICatRepository {
@@ -42,5 +40,10 @@ public class CatRepository implements ICatRepository {
                                 rs.getLong("motherId")
         )
         );
+    }
+
+    @Override
+    public void createCat(Cat cat) {
+        System.out.println("Kat oprettet: " + cat.getName());
     }
 }
