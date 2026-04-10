@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class RegisterController {
@@ -24,8 +25,11 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("UserLogin") UserLogin userLogin){
+    public String register(@ModelAttribute("UserLogin") UserLogin userLogin, HttpSession session){
         registerService.register(userLogin);
-        return "success";// go to user information page
+        session.setAttribute("loggedInUser", userLogin);
+        return "createUserProfile";
     }
+
+
 }

@@ -3,11 +3,13 @@ package org.example.racekatteklubben.use_case;
 import org.example.racekatteklubben.entity.UserLogin;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RegisterService {
+
+
     private final IUserRepository userRepository;
     @Autowired
     public RegisterService(IUserRepository userRepository) {
@@ -23,16 +25,16 @@ public class RegisterService {
 
     public void emailVerify(UserLogin userLogin) throws VerifyError{
         String email = userRepository.getEmail(userLogin);
-        if(!email.isBlank()){
+        if(!(email == null)){
             throw new VerifyError("Email already exists");
         }
     }
 
     public void notEmptyVerify(UserLogin userLogin) throws VerifyError{
-        if(userLogin.getEmail() == null || !userLogin.getEmail().isBlank()){
+        if(userLogin.getEmail() == null || userLogin.getEmail().isBlank()){
             throw new VerifyError("Invalid email input");
         }
-        if(userLogin.getPassword() == null || !userLogin.getPassword().isBlank()){
+        if(userLogin.getPassword() == null || userLogin.getPassword().isBlank()){
             throw new VerifyError("Invalid password input");
         }
     }

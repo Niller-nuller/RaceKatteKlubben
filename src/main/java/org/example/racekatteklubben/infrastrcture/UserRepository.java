@@ -1,8 +1,10 @@
 package org.example.racekatteklubben.infrastrcture;
 
 
+import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.entity.UserLogin;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import org.springframework.stereotype.Repository;
@@ -32,13 +34,34 @@ public class UserRepository implements IUserRepository {
     @Override
     public String getEmail(UserLogin userLogin){
         String sql = "SELECT * FROM Credentials WHERE email = ?";
-        return jdbcTemplate.queryForObject(sql,
-                (rs, rowNum) -> rs.getString("email"),
-                userLogin.getEmail());
+        // try er kun til hvis databasen er tom
+        try {
+            return jdbcTemplate.queryForObject(sql,
+                    (rs, rowNum) -> rs.getString("email"),
+                    userLogin.getEmail());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
     @Override
     public void createUserCredentials(UserLogin userLogin) {
         String sql = "INSERT INTO Credentials (email, password) VALUES (?, ?)";
         jdbcTemplate.update(sql, userLogin.getEmail(), userLogin.getPassword());
     }
+
+    @Override
+    public void createUser(User user, UserLogin userLogin) {
+        String sql = "INSERT INTO Users (Name, LastName, Gender, CredentialsID) VALUES (?, ?, ?, ?)";
+        userLogin.setId(userLogin.getId());
+        jdbcTemplate.update(sql, user.getName(), user.getLastName(), user.getGender(), userLogin.getId());
+    }
+
+    @Override
+    public UserLogin getUserLoginId(UserLogin userLogin){
+        String sql = "SELECT CredentialsId FROM Users WHERE email = ?";
+        return jdbcTemplate.queryForObject(sql,
+                (rs, rowNum) -> new UserLogin()
+        );
+    }
+
 }

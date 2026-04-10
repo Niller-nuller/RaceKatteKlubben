@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <title>Create Account</title>
@@ -10,13 +10,22 @@
 
 <form th:action="@{/register}" th:object="${UserLogin}" method="post">
 
+    <div class="field">
     <label for="email">Email:</label><br>
     <input type="text" id="email" th:field="*{email}"><br><br>
-
+    </div>
+    <div class="field">
     <label for="password">Password:</label><br>
     <input type="password" id="password" th:field="*{password}"><br><br>
-
+    </div>
     <button type="submit">Opret</button>
+
 </form>
+
+<div class="divider">eller</div>
+
+<h3><a th:href="@{error}">Til Start</a></h3>
+
+<h3><a th:href="@{login}">Til Login</a></h3>
 </body>
 </html>

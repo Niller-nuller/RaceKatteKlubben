@@ -3,14 +3,14 @@ package org.example.racekatteklubben.entity;
 public class User {
     private long id;
     private String name;
-    private int age;
+    private String lastName;
     private Gender gender;
     private UserLogin usersLogin;
 
     public User(){}
-    public User(String name, int age, Gender gender, UserLogin usersLogin) {
+    public User(String name,String lastName, Gender gender, UserLogin usersLogin) {
         this.name = name;
-        this.age = age;
+        this.lastName = lastName;
         this.gender = gender;
         this.usersLogin = usersLogin;
     }
@@ -25,10 +25,11 @@ public class User {
     }
     public  void setName(String name) {
     }
-    public int getAge() {
-        return age;
+    public String getLastName() {
+        return lastName;
     }
-    public void setAge(int age) {
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
     public Gender getGender() {
         return gender;
