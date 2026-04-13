@@ -26,6 +26,8 @@ public class RegisterController {
     @PostMapping("/register")
     public String register(@ModelAttribute("UserLogin") UserLogin userLogin){
         registerService.register(userLogin);
-        return "success";// go to user information page
+        return "index";// go to user information page
     }
+
+
 }

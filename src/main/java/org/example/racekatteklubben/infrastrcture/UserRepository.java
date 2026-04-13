@@ -3,6 +3,7 @@ package org.example.racekatteklubben.infrastrcture;
 
 import org.example.racekatteklubben.entity.UserLogin;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import org.springframework.stereotype.Repository;
@@ -32,9 +33,13 @@ public class UserRepository implements IUserRepository {
     @Override
     public String getEmail(UserLogin userLogin){
         String sql = "SELECT * FROM Credentials WHERE email = ?";
-        return jdbcTemplate.queryForObject(sql,
-                (rs, rowNum) -> rs.getString("email"),
-                userLogin.getEmail());
+        try {
+            return jdbcTemplate.queryForObject(sql,
+                    (rs, rowNum) -> rs.getString("email"),
+                    userLogin.getEmail());
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
     @Override
     public void createUserCredentials(UserLogin userLogin) {

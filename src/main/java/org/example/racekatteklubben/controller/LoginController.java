@@ -3,6 +3,7 @@ package org.example.racekatteklubben.controller;
 import jakarta.servlet.http.HttpSession;
 import org.example.racekatteklubben.entity.UserLogin;
 import org.example.racekatteklubben.use_case.LogInService;
+import org.example.racekatteklubben.use_case.LogOutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     private final LogInService logInService;
+    private final LogOutService logOutService;
     @Autowired
-    public LoginController(LogInService logInService) {
+    public LoginController(LogInService logInService, LogOutService logOutService) {
         this.logInService = logInService;
+        this.logOutService = logOutService;
     }
 
     @GetMapping("/login")

@@ -31,7 +31,7 @@ public class CreateCatController {
     @PostMapping("/create")
     public String createCat(@ModelAttribute Cat cat, HttpSession session, Model model) {
 
-        Long ownerId = (Long) session.getAttribute("userId"); //check id til senere;
+        Long ownerId = (Long) session.getAttribute("loggedInUser");
         if (ownerId == null) {
             // ERROR PAGE
         }
