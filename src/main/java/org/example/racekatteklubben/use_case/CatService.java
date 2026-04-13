@@ -20,13 +20,8 @@ public class CatService {
         this.catRepository = catRepository;
     }
 
-    public List<Cat> handleGetFullListOfCats(){
 
-        return catRepository.requestFullCatList();
-
-    }
-
-    public List<Cat> handleGetFullFilteredListOfCats(String criteria){
+    public List<Cat> handleGetFullListOfCats(String criteria){
         return catRepository.requestFullFilteredCatList(criteria);
     }
 

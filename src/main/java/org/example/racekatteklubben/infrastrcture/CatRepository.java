@@ -39,11 +39,6 @@ public class CatRepository implements ICatRepository {
         );
     }
     @Override
-    public List<Cat> requestFullCatList() {
-        String sql = "SELECT * FROM cats";
-        return createCatList(sql);
-    }
-    @Override
     public List<Cat> requestFullFilteredCatList(String criteria){
         String sql = "SELECT * FROM cats WHERE name LIKE '%"+criteria+"%'";
         return createCatList(sql);

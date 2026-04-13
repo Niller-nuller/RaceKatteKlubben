@@ -8,7 +8,6 @@ import java.util.List;
 @Repository
 public interface ICatRepository {
 
-    List<Cat> requestFullCatList();
     List<Cat> requestFullFilteredCatList(String criteria);
     void createCat(Cat cat);
 }
