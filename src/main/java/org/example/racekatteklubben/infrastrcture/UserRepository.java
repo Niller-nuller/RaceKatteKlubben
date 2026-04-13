@@ -1,7 +1,7 @@
 package org.example.racekatteklubben.infrastrcture;
 
 
-import org.example.racekatteklubben.entity.UserLogin;
+import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,11 +19,11 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public UserLogin logUserIn(UserLogin userLogin) {
+    public Auth logUserIn(Auth userLogin) {
         String sql = "SELECT * FROM Credentials WHERE email = ?";
 
         return jdbcTemplate.queryForObject(sql,
-                (rs, rowNum) -> new UserLogin(
+                (rs, rowNum) -> new Auth(
                         rs.getString("email"),
                         rs.getString("password")
                 ),
@@ -31,7 +31,7 @@ public class UserRepository implements IUserRepository {
         );
     }
     @Override
-    public String getEmail(UserLogin userLogin){
+    public String getEmail(Auth userLogin){
         String sql = "SELECT * FROM Credentials WHERE email = ?";
         try {
             return jdbcTemplate.queryForObject(sql,
@@ -42,7 +42,7 @@ public class UserRepository implements IUserRepository {
         }
     }
     @Override
-    public void createUserCredentials(UserLogin userLogin) {
+    public void createUserCredentials(Auth userLogin) {
         String sql = "INSERT INTO Credentials (email, password) VALUES (?, ?)";
         jdbcTemplate.update(sql, userLogin.getEmail(), userLogin.getPassword());
     }

@@ -1,13 +1,13 @@
 package org.example.racekatteklubben.entity;
 
-public class UserLogin {
+public class Auth {
     private long id;
     private String email;
     private String password;
 
-    public UserLogin(){}
+    public Auth(){}
 
-    public UserLogin(String email, String password) {
+    public Auth(String email, String password) {
         this.email = email;
         this.password = password;
     }

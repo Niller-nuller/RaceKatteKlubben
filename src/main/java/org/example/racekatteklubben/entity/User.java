@@ -5,10 +5,10 @@ public class User {
     private String name;
     private int age;
     private Gender gender;
-    private UserLogin usersLogin;
+    private Auth usersLogin;
 
     public User(){}
-    public User(String name, int age, Gender gender, UserLogin usersLogin) {
+    public User(String name, int age, Gender gender, Auth usersLogin) {
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -36,10 +36,10 @@ public class User {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-    public UserLogin getUsersLogin() {
+    public Auth getUsersLogin() {
         return usersLogin;
     }
-    public void setUsersLogin(UserLogin usersLogin) {
+    public void setUsersLogin(Auth usersLogin) {
         this.usersLogin = usersLogin;
     }
 }

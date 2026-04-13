@@ -1,6 +1,6 @@
 package org.example.racekatteklubben.use_case;
 
-import org.example.racekatteklubben.entity.UserLogin;
+import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.mindrot.jbcrypt.BCrypt;
@@ -15,7 +15,7 @@ public class RegisterService {
     public RegisterService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    public void register(UserLogin userLogin){
+    public void register(Auth userLogin){
         notEmptyVerify(userLogin);
         emailVerify(userLogin);
         String hashed = BCrypt.hashpw(userLogin.getPassword(), BCrypt.gensalt());
@@ -23,14 +23,14 @@ public class RegisterService {
         userRepository.createUserCredentials(userLogin);
     }
 
-    public void emailVerify(UserLogin userLogin) throws VerifyError{
+    public void emailVerify(Auth userLogin) throws VerifyError{
         String email = userRepository.getEmail(userLogin);
         if(!(email == null)){
             throw new VerifyError("Email already exists");
         }
     }
 
-    public void notEmptyVerify(UserLogin userLogin) throws VerifyError{
+    public void notEmptyVerify(Auth userLogin) throws VerifyError{
         if(userLogin.getEmail() == null || userLogin.getEmail().isBlank()){
             throw new VerifyError("Invalid email input");
         }
