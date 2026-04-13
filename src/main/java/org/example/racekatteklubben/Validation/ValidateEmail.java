@@ -7,7 +7,7 @@ import org.example.racekatteklubben.exception.ValidatorException;
 import org.springframework.stereotype.Component;
 
 @Component("EMAIL")
-public class ValidateEmail implements ValidationStrat {
+public class ValidateEmail implements ValidationStrategy {
 
     @Override
     public ValidationType getValidationType() {

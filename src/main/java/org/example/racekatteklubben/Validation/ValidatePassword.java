@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component("PASSWORD")
-public class ValidatePassword implements ValidationStrat {
+public class ValidatePassword implements ValidationStrategy {
     @Override
     public ValidationType getValidationType() {
         return ValidationType.PASSWORD;

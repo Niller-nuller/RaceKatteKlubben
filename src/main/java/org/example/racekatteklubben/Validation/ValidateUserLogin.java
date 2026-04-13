@@ -4,7 +4,7 @@ import org.example.racekatteklubben.entity.UserLogin;
 import org.example.racekatteklubben.exception.ValidatorException;
 import org.springframework.stereotype.Component;
 @Component("USER_LOGIN")
-public class ValidateUserLogin implements ValidationStrat {
+public class ValidateUserLogin implements ValidationStrategy {
 
     @Override
     public ValidationType getValidationType() {

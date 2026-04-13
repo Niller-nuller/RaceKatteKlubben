@@ -19,8 +19,9 @@ public class ReadCatController {
     }
 
     @GetMapping("/cat-list")
-    public String catList(Model model){
+    public String catList(Model model,String criteria){
         model.addAttribute("catList", catService.handleGetFullListOfCats());
+        model.addAttribute("searchCriteria", catService.handleGetFullFilteredListOfCats(criteria));
         return "cat-list";
     }
 }

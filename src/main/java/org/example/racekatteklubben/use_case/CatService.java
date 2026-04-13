@@ -26,6 +26,10 @@ public class CatService {
 
     }
 
+    public List<Cat> handleGetFullFilteredListOfCats(String criteria){
+        return catRepository.requestFullFilteredCatList(criteria);
+    }
+
     public void createCat(Cat cat, long ownerId) {
         cat.setOwnerId(ownerId);
 

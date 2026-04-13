@@ -1,6 +1,6 @@
 package org.example.racekatteklubben.Validation;
 
-public interface ValidationStrat {
+public interface ValidationStrategy {
     ValidationType getValidationType();
     void validate(Object object);
 }
