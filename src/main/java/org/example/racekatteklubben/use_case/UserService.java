@@ -10,6 +10,9 @@ public class UserService {
     private IUserRepository userRepository;
 
     @Autowired
+    public UserService(IUserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
     public void setUserRepository(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }

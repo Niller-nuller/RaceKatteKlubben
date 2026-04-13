@@ -52,15 +52,16 @@ public class UserRepository implements IUserRepository {
     @Override
     public void createUser(User user, UserLogin userLogin) {
         String sql = "INSERT INTO Users (Name, LastName, Gender, CredentialsID) VALUES (?, ?, ?, ?)";
-        userLogin.setId(userLogin.getId());
-        jdbcTemplate.update(sql, user.getName(), user.getLastName(), user.getGender(), userLogin.getId());
+
+        userLogin.setId(getUserLoginId(userLogin).getId());
+        jdbcTemplate.update(sql, user.getName(), user.getLastName(), user.getGender().toString(), userLogin.getId());
     }
 
     @Override
     public UserLogin getUserLoginId(UserLogin userLogin){
-        String sql = "SELECT CredentialsId FROM Users WHERE email = ?";
+        String sql = "SELECT * FROM Credentials WHERE email = ?";
         return jdbcTemplate.queryForObject(sql,
-                (rs, rowNum) -> new UserLogin()
+                (rs, rowNum) -> new UserLogin(rs.getLong("CredentialsId"), rs.getString("Email"), rs.getString("Password")), userLogin.getEmail()
         );
     }
 

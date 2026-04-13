@@ -1,6 +1,9 @@
 package org.example.racekatteklubben.controller;
 
 
+import org.example.racekatteklubben.entity.Gender;
+import org.example.racekatteklubben.entity.RegisterWrapper;
+import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.entity.UserLogin;
 import org.example.racekatteklubben.use_case.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +23,15 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
-        model.addAttribute("UserLogin", new UserLogin());
+        model.addAttribute("genders", Gender.values());
+        model.addAttribute("registerWrapper", new RegisterWrapper());
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("UserLogin") UserLogin userLogin, HttpSession session){
-        registerService.register(userLogin);
-        session.setAttribute("loggedInUser", userLogin);
-        return "createUserProfile";
+    public String register(@ModelAttribute("UserLogin") RegisterWrapper registerWrapper) {
+        registerService.register(registerWrapper);
+        return "index";
     }
 
 

@@ -1,6 +1,7 @@
 package org.example.racekatteklubben.controller;
 
 
+import org.example.racekatteklubben.entity.Gender;
 import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.use_case.CreateUserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,13 @@ public class CreateUserProfileController {
     public CreateUserProfileController(CreateUserProfileService createUserProfileService) {
         this.createUserProfileService = createUserProfileService;
     }
-    @GetMapping
+    @GetMapping("/createUserProfile")
     public String createUserProfile(Model model) {
         model.addAttribute("UserProfile", new User());
-        return "createUserProfile";
+        model.addAttribute("genders", Gender.values());
+        return "index";
     }
-    @PostMapping
+    @PostMapping("/createuserprofile")
     public String createUserProfile(@ModelAttribute("userProfile") User user) {
         createUserProfileService.createUserProfile(user);
         return "index";

@@ -5,7 +5,7 @@
     <title>UserProfile</title>
 </head>
 <body>
-<form th:action="@{/createUserProfile}" th:object="${UserProfile}" method="post">
+<form th:action="@{/createUserProfile}" th:object="${User}" method="post">
     <div class="field">
         <label for="name">:navn</label><br>
         <input type="text" id="name" th:field="*{name}"><br><br>
@@ -14,6 +14,8 @@
         <label for="lastname">:efternavn</label><br>
         <input type="text" id="lastname" th:field="*{lastName}"><br><br>
     </div>
+    <div class ="field-row">
+    <div class="field">
     <label for="gender">Køn</label>
     <select id="gender" th:field="*{gender}" required>
         <option value="">-- vælg --</option>
@@ -21,6 +23,8 @@
                 th:value="${g}"
                 th:text="${g}"></option>
     </select>
+    </div>
+    </div>
     <button type="submit">Opret</button>
 </form>
 
