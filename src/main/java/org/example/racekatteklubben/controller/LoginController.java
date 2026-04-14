@@ -17,18 +17,21 @@ public class LoginController {
     public LoginController(LogInService logInService) {
         this.logInService = logInService;
     }
-
     @GetMapping("/login")
-    public String login(Model model) {
+    public String showLogin(Model model) {
         model.addAttribute("Auth", new Auth());
         return "login";
     }
 
     @PostMapping("/login")
     public String login(@ModelAttribute("Auth") Auth auth, HttpSession session, Model model) {
-//        logInService.login(auth);
-
-        session.setAttribute("AuthUser", logInService.login(auth));
-        return "redirect:/";
+        try {
+            User loggedInUser = logInService.login(auth);
+            session.setAttribute("AuthUser", loggedInUser);
+            return "redirect:/";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+            return "login";
+        }
     }
 }

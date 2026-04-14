@@ -22,6 +22,7 @@ public class User {
         this.usersAuth = usersAuth;
     }
 
+
     public long getId() {
         return id;
     }

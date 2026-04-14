@@ -10,21 +10,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LogInService {
-    private final HttpSession session;
     private final IUserRepository userRepository;
     @Autowired
     public LogInService(IUserRepository userRepository, HttpSession session) {
         this.userRepository = userRepository;
-        this.session = session;
     }
 
     public User login(Auth loginRequest) {
         Auth authLogin = userRepository.logUserIn(loginRequest);
+
         if (authLogin != null && BCrypt.checkpw(loginRequest.getPassword(), authLogin.getPassword())) {
-            User user = userRepository.getUserFromAuth(loginRequest);
-            return user;
+            return userRepository.getUserByCredentialsId(authLogin.getId());
         }
-        return null;
+        throw new RuntimeException("forkert email eller adgangskode");
     }
 
 

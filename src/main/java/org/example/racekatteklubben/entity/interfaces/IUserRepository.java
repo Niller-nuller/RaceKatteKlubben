@@ -10,7 +10,8 @@ import java.util.List;
 public interface IUserRepository {
     String getEmail(Auth userAuth);
     void createUserCredentials(Auth userAuth);
-    Auth logUserIn(Auth userAuth);
+    Auth logUserIn(Auth loginRequest);
+    User getUserByCredentialsId(long id);
     void createUser(User user, Auth userAuth);
     Auth getUserLoginId(Auth userAuth);
     List<User> requestFullUserList();

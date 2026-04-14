@@ -21,15 +21,44 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public Auth logUserIn(Auth userAuth) {
+    public Auth logUserIn(Auth loginRequest) {
         String sql = "SELECT * FROM Credentials WHERE email = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql,
+                    (rs, rowNum) -> new Auth(
+                            rs.getLong("CredentialsId"),
+                            rs.getString("email"),
+                            rs.getString("password")
+                    ),
+                    loginRequest.getEmail()
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public User getUserByCredentialsId(long credentialsId) {
+        String sql = "SELECT u.*, c.email, c.password FROM Users u " +
+                "JOIN Credentials c ON u.CredentialsId = c.CredentialsId " +
+                "WHERE u.CredentialsId = ?";
 
         return jdbcTemplate.queryForObject(sql,
-                (rs, rowNum) -> new Auth(
-                        rs.getString("email"),
-                        rs.getString("password")
-                ),
-                userAuth.getEmail()
+                (rs, rowNum) -> {
+                    Auth auth = new Auth(
+                            credentialsId,
+                            rs.getString("email"),
+                            rs.getString("password")
+                    );
+                    return new User(
+                            rs.getLong("UserId"),
+                            rs.getString("Name"),
+                            rs.getString("LastName"),
+                            Gender.valueOf(rs.getString("Gender")),
+                            auth
+                    );
+                },
+                credentialsId
         );
     }
     @Override
