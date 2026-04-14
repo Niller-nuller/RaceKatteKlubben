@@ -1,7 +1,7 @@
 package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.racekatteklubben.entity.UserLogin;
+import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.use_case.LogInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,20 +21,20 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute UserLogin userLogin) {
+    public String login(@ModelAttribute Auth auth) {
         return "login";
     }
 
     @PostMapping("/login")
     public String login(Model model, @RequestParam String email, @RequestParam String password, HttpSession session) {
-        UserLogin userLogin = logInService.login(new UserLogin(email, password));
+        Auth auth = logInService.login(new Auth(email, password));
 
-        if (userLogin == null) {
+        if (auth == null) {
             model.addAttribute("error", "Ingen bruger fundet med den email");
             return "/login";
         }
-        session.setAttribute("loggedInUser", userLogin);
-        System.out.println("User er: " + userLogin.getEmail() + ", " + userLogin.getPassword());
+        session.setAttribute("loggedInUser", auth);
+        System.out.println("User er: " + auth.getEmail() + ", " + auth.getPassword());
         return "redirect:/";
     }
 }

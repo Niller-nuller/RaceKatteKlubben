@@ -5,6 +5,7 @@ import org.example.racekatteklubben.Validation.ValidationType;
 import org.example.racekatteklubben.exception.ValidatorException;
 import org.springframework.stereotype.Service;
 
+import javax.xml.validation.Validator;
 import java.util.Map;
 
 @Service

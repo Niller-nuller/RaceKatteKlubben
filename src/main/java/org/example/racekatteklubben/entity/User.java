@@ -3,16 +3,23 @@ package org.example.racekatteklubben.entity;
 public class User {
     private long id;
     private String name;
-    private int age;
+    private String lastName;
     private Gender gender;
-    private UserLogin usersLogin;
+    private Auth AuthLogin;
 
     public User(){}
-    public User(String name, int age, Gender gender, UserLogin usersLogin) {
+    public User(String name,String lastName, Gender gender, Auth AuthLogin) {
         this.name = name;
-        this.age = age;
+        this.lastName = lastName;
         this.gender = gender;
-        this.usersLogin = usersLogin;
+        this.AuthLogin = AuthLogin;
+    }
+    public User(long id, String name, String lastName, Gender gender, Auth AuthLogin) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.AuthLogin = AuthLogin;
     }
 
     public long getId() {
@@ -24,11 +31,13 @@ public class User {
         return name;
     }
     public  void setName(String name) {
+        this.name = name;
     }
-    public int getAge() {
-        return age;
+    public String getLastName() {
+        return lastName;
     }
-    public void setAge(int age) {
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
     public Gender getGender() {
         return gender;
@@ -36,10 +45,10 @@ public class User {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-    public UserLogin getUsersLogin() {
-        return usersLogin;
+    public Auth getUsersLogin() {
+        return AuthLogin;
     }
-    public void setUsersLogin(UserLogin usersLogin) {
-        this.usersLogin = usersLogin;
+    public void setUsersLogin(Auth AuthLogin) {
+        this.AuthLogin = AuthLogin;
     }
 }

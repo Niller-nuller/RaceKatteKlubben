@@ -1,8 +1,8 @@
 package org.example.racekatteklubben.Validation;
 
-import org.example.racekatteklubben.entity.UserLogin;
+import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.exception.PasswordValidationException;
-import org.example.racekatteklubben.exception.UserLoginException;
+import org.example.racekatteklubben.exception.AuthException;
 import org.example.racekatteklubben.exception.ValidatorException;
 import org.springframework.stereotype.Component;
 
@@ -17,18 +17,18 @@ public class ValidatePassword implements ValidationStrategy {
     @Override
     public void validate(Object object) {
         if(object == null || object.equals("")){
-            throw new UserLoginException("The login request is empty");
+            throw new AuthException("The login request is empty");
         }
-        if(!(object instanceof UserLogin userLogin)){
+        if(!(object instanceof Auth auth)){
             throw new ValidatorException("Wrong Exception thrown please contact an administrator");
         }
-        if(userLogin.getPassword() == null || userLogin.getPassword().isEmpty()){
+        if(auth.getPassword() == null || auth.getPassword().isEmpty()){
             throw new PasswordValidationException("Password is empty");
         }
-        if(userLogin.getPassword().length() < 8){
+        if(auth.getPassword().length() < 8){
             throw new PasswordValidationException("Password too short");
         }
-        if(!userLogin.getPassword().matches(".*[a-zA-Z].*") || !userLogin.getPassword().matches(".*\\d.*")){
+        if(!auth.getPassword().matches(".*[a-zA-Z].*") || !auth.getPassword().matches(".*\\d.*")){
             throw new PasswordValidationException("Password is not string enough");
         }
     }

@@ -1,8 +1,8 @@
 package org.example.racekatteklubben.Validation;
 
-import org.example.racekatteklubben.entity.UserLogin;
+import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.exception.EmailValidationException;
-import org.example.racekatteklubben.exception.UserLoginException;
+import org.example.racekatteklubben.exception.AuthException;
 import org.example.racekatteklubben.exception.ValidatorException;
 import org.springframework.stereotype.Component;
 
@@ -17,18 +17,18 @@ public class ValidateEmail implements ValidationStrategy {
     @Override
     public void validate(Object object) {
         if(object == null || object.equals("")){
-            throw new UserLoginException("The login request is empty");
+            throw new AuthException("The login request is empty");
         }
-        if(!(object instanceof UserLogin userLogin)){
+        if(!(object instanceof Auth auth)){
             throw new ValidatorException("Wrong Exception thrown please contact an administrator");
         }
-        if(userLogin.getEmail() == null || userLogin.getEmail().isEmpty()){
+        if(auth.getEmail() == null || auth.getEmail().isEmpty()){
             throw new EmailValidationException("Email is empty");
         }
-        if(!userLogin.getEmail().contains("@")){
+        if(!auth.getEmail().contains("@")){
             throw new EmailValidationException("Invalid email");
         }
-        if(userLogin.getEmail().length() < 8){
+        if(auth.getEmail().length() < 8){
             throw new EmailValidationException("Invalid email length");
         }
     }

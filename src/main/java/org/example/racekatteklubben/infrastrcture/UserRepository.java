@@ -1,7 +1,7 @@
 package org.example.racekatteklubben.infrastrcture;
 
 
-import org.example.racekatteklubben.entity.UserLogin;
+import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,27 +17,27 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public UserLogin logUserIn(UserLogin userLogin) {
+    public Auth logUserIn(Auth auth) {
         String sql = "SELECT * FROM Credentials WHERE email = ?";
 
         return jdbcTemplate.queryForObject(sql,
-                (rs, rowNum) -> new UserLogin(
+                (rs, rowNum) -> new Auth(
                         rs.getString("email"),
                         rs.getString("password")
                 ),
-                userLogin.getEmail()
+                auth.getEmail()
         );
     }
     @Override
-    public String getEmail(UserLogin userLogin){
+    public String getEmail(Auth auth){
         String sql = "SELECT * FROM Credentials WHERE email = ?";
         return jdbcTemplate.queryForObject(sql,
                 (rs, rowNum) -> rs.getString("email"),
-                userLogin.getEmail());
+                auth.getEmail());
     }
     @Override
-    public void createUserCredentials(UserLogin userLogin) {
+    public void createUserCredentials(Auth auth) {
         String sql = "INSERT INTO Credentials (email, password) VALUES (?, ?)";
-        jdbcTemplate.update(sql, userLogin.getEmail(), userLogin.getPassword());
+        jdbcTemplate.update(sql, auth.getEmail(), auth.getPassword());
     }
 }

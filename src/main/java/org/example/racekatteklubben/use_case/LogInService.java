@@ -1,10 +1,10 @@
 package org.example.racekatteklubben.use_case;
 
 import org.example.racekatteklubben.Validation.ValidationType;
-import org.example.racekatteklubben.entity.UserLogin;
+import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,15 +18,15 @@ public class LogInService {
         this.validationService = validationService;
     }
 
-    public UserLogin login(UserLogin loginRequest) {
+    public Auth login(Auth loginRequest) {
         validateLogin(loginRequest);
-        UserLogin userLogin = userRepository.logUserIn(loginRequest);
-        if (userLogin != null && BCrypt.checkpw(loginRequest.getPassword(), userLogin.getPassword())) {
-            return userLogin;
+        Auth auth = userRepository.logUserIn(loginRequest);
+        if (auth != null && BCrypt.checkpw(loginRequest.getPassword(), auth.getPassword())) {
+            return auth;
         }
         return null;
     }
-    private void validateLogin(UserLogin loginRequest) {
+    private void validateLogin(Auth loginRequest) {
         validationService.validate(ValidationType.EMAIL, loginRequest.getEmail());
         validationService.validate(ValidationType.PASSWORD, loginRequest.getPassword());
     }

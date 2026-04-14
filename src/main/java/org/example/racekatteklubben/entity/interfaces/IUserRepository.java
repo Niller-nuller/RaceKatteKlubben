@@ -1,11 +1,11 @@
 package org.example.racekatteklubben.entity.interfaces;
 
-import org.example.racekatteklubben.entity.UserLogin;
+import org.example.racekatteklubben.entity.Auth;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IUserRepository {
-    String getEmail(UserLogin userLogin);
-    void createUserCredentials(UserLogin userLogin);
-    UserLogin logUserIn(UserLogin userLogin);
+    String getEmail(Auth auth);
+    void createUserCredentials(Auth auth);
+    Auth logUserIn(Auth auth);
 }
