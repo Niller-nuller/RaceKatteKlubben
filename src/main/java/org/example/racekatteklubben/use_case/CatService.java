@@ -16,7 +16,6 @@ public class CatService {
     private final ValidationService validationService;
     @Autowired
     public CatService(ICatRepository catRepository, ValidationService validationService) {
-
         this.catRepository = catRepository;
         this.validationService = validationService;
     }

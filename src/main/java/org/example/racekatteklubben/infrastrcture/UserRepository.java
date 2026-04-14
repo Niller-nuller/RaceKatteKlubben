@@ -26,15 +26,15 @@ public class UserRepository implements IUserRepository {
 
         return jdbcTemplate.queryForObject(sql,
                 (rs, rowNum) -> new Auth(
-                        rs.getString("email"),
-                        rs.getString("password")
+                        rs.getLong("CredentialsId"),
+                        rs.getString("Email"),
+                        rs.getString("Password")
                 ),
                 userAuth.getEmail()
         );
     }
     @Override
     public User getUserFromAuth(Auth userAuth){
-        userAuth = getUserLoginId(userAuth);
         String sql = "SELECT * FROM Users WHERE Users.credentialsId = ?";
         return jdbcTemplate.queryForObject(sql,
                 (rs, rowNum) -> new User(
