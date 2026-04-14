@@ -7,11 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="RaceKatteKlubben (1)" />
+        <module name="RaceKatteKlubben" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="RaceKatteKlubben" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

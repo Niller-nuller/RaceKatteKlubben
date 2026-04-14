@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <title>Create Account</title>
@@ -8,15 +8,44 @@
 <body>
 <h1>Create Account</h1>
 
-<form th:action="@{/register}" th:object="${UserLogin}" method="post">
 
+<form th:action="@{/register}" th:object="${registerWrapper}" method="post">
+
+    <div class="field">
     <label for="email">Email:</label><br>
-    <input type="text" id="email" th:field="*{email}"><br><br>
-
+    <input type="text" id="email" th:field="*{userLogin.email}"><br><br>
+    </div>
+    <div class="field">
     <label for="password">Password:</label><br>
-    <input type="password" id="password" th:field="*{password}"><br><br>
-
+    <input type="password" id="password" th:field="*{userLogin.password}"><br><br>
+    </div>
+    <div class="field">
+        <label for="name">navn:</label><br>
+        <input type="text" id="name" th:field="*{user.name}"><br><br>
+    </div>
+    <div class="field">
+        <label for="lastname">efternavn:</label><br>
+        <input type="text" id="lastname" th:field="*{user.lastName}"><br><br>
+    </div>
+    <div class ="field-row">
+        <div class="field">
+            <label for="gender">Køn</label>
+            <select id="gender" th:field="*{user.gender}" required>
+                <option value="">-- vælg --</option>
+                <option th:each="g : ${genders}"
+                        th:value="${g}"
+                        th:text="${g}"></option>
+            </select>
+        </div>
+    </div>
     <button type="submit">Opret</button>
+
 </form>
+
+<div class="divider">eller</div>
+
+<h3><a th:href="@{error}">Til Start</a></h3>
+
+<h3><a th:href="@{login}">Til Login</a></h3>
 </body>
 </html>

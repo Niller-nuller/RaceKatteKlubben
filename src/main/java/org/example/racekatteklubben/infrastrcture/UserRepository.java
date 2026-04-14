@@ -1,10 +1,16 @@
 package org.example.racekatteklubben.infrastrcture;
 
 
-import org.example.racekatteklubben.entity.Auth;
+import org.example.racekatteklubben.entity.Gender;
+import org.example.racekatteklubben.entity.User;
+import org.example.racekatteklubben.entity.UserLogin;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class UserRepository implements IUserRepository {
@@ -17,27 +23,58 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public Auth logUserIn(Auth auth) {
+    public UserLogin logUserIn(UserLogin userLogin) {
         String sql = "SELECT * FROM Credentials WHERE email = ?";
 
         return jdbcTemplate.queryForObject(sql,
-                (rs, rowNum) -> new Auth(
+                (rs, rowNum) -> new UserLogin(
                         rs.getString("email"),
                         rs.getString("password")
                 ),
-                auth.getEmail()
+                userLogin.getEmail()
         );
     }
     @Override
-    public String getEmail(Auth auth){
+    public String getEmail(UserLogin userLogin){
         String sql = "SELECT * FROM Credentials WHERE email = ?";
-        return jdbcTemplate.queryForObject(sql,
-                (rs, rowNum) -> rs.getString("email"),
-                auth.getEmail());
+        // try er kun til hvis databasen er tom
+        try {
+            return jdbcTemplate.queryForObject(sql,
+                    (rs, rowNum) -> rs.getString("email"),
+                    userLogin.getEmail());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
     @Override
-    public void createUserCredentials(Auth auth) {
+    public void createUserCredentials(UserLogin userLogin) {
         String sql = "INSERT INTO Credentials (email, password) VALUES (?, ?)";
-        jdbcTemplate.update(sql, auth.getEmail(), auth.getPassword());
+        jdbcTemplate.update(sql, userLogin.getEmail(), userLogin.getPassword());
+    }
+
+    @Override
+    public void createUser(User user, UserLogin userLogin) {
+        String sql = "INSERT INTO Users (Name, LastName, Gender, CredentialsID) VALUES (?, ?, ?, ?)";
+
+        userLogin.setId(getUserLoginId(userLogin).getId());
+        jdbcTemplate.update(sql, user.getName(), user.getLastName(), user.getGender().toString(), userLogin.getId());
+    }
+
+    @Override
+    public UserLogin getUserLoginId(UserLogin userLogin){
+        String sql = "SELECT * FROM Credentials WHERE email = ?";
+        return jdbcTemplate.queryForObject(sql,
+                (rs, rowNum) -> new UserLogin(rs.getLong("CredentialsId"), rs.getString("Email"), rs.getString("Password")), userLogin.getEmail()
+        );
+    }
+    @Override
+    public List<User> requestFullUserList(){
+        String sql = "SELECT * FROM Users LEFT JOIN Credentials on Users.credentialsId = Credentials.CredentialsId";
+        return jdbcTemplate.query(sql,(rs, rowNum) ->
+                new User(rs.getLong("UserId"),
+                        rs.getString("Name"),
+                        rs.getString("LastName"),
+                        Gender.valueOf(rs.getString("Gender")),
+                        new UserLogin(rs.getString("Email"), rs.getString("Password"))));
     }
 }

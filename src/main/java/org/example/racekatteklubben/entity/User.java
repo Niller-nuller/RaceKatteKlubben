@@ -5,21 +5,21 @@ public class User {
     private String name;
     private String lastName;
     private Gender gender;
-    private Auth AuthLogin;
+    private UserLogin usersLogin;
 
     public User(){}
-    public User(String name,String lastName, Gender gender, Auth AuthLogin) {
+    public User(String name,String lastName, Gender gender, UserLogin usersLogin) {
         this.name = name;
         this.lastName = lastName;
         this.gender = gender;
-        this.AuthLogin = AuthLogin;
+        this.usersLogin = usersLogin;
     }
-    public User(long id, String name, String lastName, Gender gender, Auth AuthLogin) {
+    public User(long id, String name,String lastName, Gender gender, UserLogin usersLogin) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.gender = gender;
-        this.AuthLogin = AuthLogin;
+        this.usersLogin = usersLogin;
     }
 
     public long getId() {
@@ -45,10 +45,10 @@ public class User {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-    public Auth getUsersLogin() {
-        return AuthLogin;
+    public UserLogin getUsersLogin() {
+        return usersLogin;
     }
-    public void setUsersLogin(Auth AuthLogin) {
-        this.AuthLogin = AuthLogin;
+    public void setUsersLogin(UserLogin usersLogin) {
+        this.usersLogin = usersLogin;
     }
 }

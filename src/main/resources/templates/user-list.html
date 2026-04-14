@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>user List</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1>user List</h1>
+<table>
+    <tr>
+        <th>Navn</th>
+        <th>Efternavn</th>
+        <th>Køn</th>
+        <th>Email</th>
+    </tr>
+    <tr th:each="user : ${userList}">
+        <td th:text="${user.name}">
+        <td th:text="${user.lastName}">
+        <td th:text="${user.getGender()}">
+        <td th:text="${user.getUsersLogin().email}">
+        </td>
+</table>
+<h3><a th:href="@{/}">Tilbage til home</a></h3>
+
+</body>
+</html>
