@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min side — Racekatteklubben</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="profile-page">
+    <div class="profile-hero">
+        <div class="profile-image">Billede</div>
+        <div class="profile-right">
+            <div class="info-name" th:text="${AuthUser.email}">jonas@email.dk</div>
+            <div class="info-box">
+                <div class="info-row">
+                    <span class="label">Email</span>
+                    <span class="value" th:text="${AuthUser.email}">jonas@email.dk</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Antal katte</span>
+                    <span class="value" th:text="${#lists.size(cats)}">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-actions">
+        <a th:href="@{/cats/create}" class="btn-primary" style="text-decoration:none; text-align:center; display:inline-block; width:auto; padding:14px 32px;">
+            + Tilføj kat
+        </a>
+    </div>
+
+    <hr class="profile-divider">
+
+    <div th:if="${#lists.isEmpty(cats)}" class="empty-state">
+        <p>Du har ingen katte endnu. Tilføj din første kat!</p>
+    </div>
+
+    <div th:if="${!#lists.isEmpty(cats)}" class="cat-list">
+        <div th:each="cat : ${cats}" class="cat-list-item">
+            <div class="cat-list-image">Billede</div>
+            <div class="cat-list-info">
+                <div class="info-name" th:text="${cat.name}">Billy Bob Master 4000</div>
+                <div class="info-box">
+                    <div class="info-row">
+                        <span class="label">Køn</span>
+                        <span class="value">
+                            <span th:if="${cat.gender.name() == 'MALE'}" class="cat-badge cat-badge--male">Han</span>
+                            <span th:if="${cat.gender.name() == 'FEMALE'}" class="cat-badge cat-badge--female">Hun</span>
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Alder</span>
+                        <span class="value" th:text="${cat.age} + ' år'">3 år</span>
+                    </div>
+                    <div th:if="${cat.dateOfBirth != null}" class="info-row">
+                        <span class="label">Født</span>
+                        <span class="value" th:text="${cat.dateOfBirth}">2024-01-15</span>
+                    </div>
+                    <div th:if="${cat.breedCode != null and !cat.breedCode.isEmpty()}" class="info-row">
+                        <span class="label">Race</span>
+                        <span class="value" th:text="${cat.breedCode}">MCO</span>
+                    </div>
+                    <div th:if="${cat.fullCode != null and !cat.fullCode.isEmpty()}" class="info-row">
+                        <span class="label">Kode</span>
+                        <span class="value" th:text="${cat.fullCode}">a-21-MCO-62</span>
+                    </div>
+                    <div th:if="${cat.dead}" class="info-row">
+                        <span class="label">Status</span>
+                        <span class="value" style="color: var(--error);">Død</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
