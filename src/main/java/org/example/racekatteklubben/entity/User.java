@@ -14,6 +14,13 @@ public class User {
         this.gender = gender;
         this.usersLogin = usersLogin;
     }
+    public User(long id, String name,String lastName, Gender gender, UserLogin usersLogin) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.usersLogin = usersLogin;
+    }
 
     public long getId() {
         return id;

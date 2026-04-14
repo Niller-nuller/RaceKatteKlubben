@@ -1,6 +1,7 @@
 package org.example.racekatteklubben.infrastrcture;
 
 
+import org.example.racekatteklubben.entity.Gender;
 import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.entity.UserLogin;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
@@ -8,6 +9,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class UserRepository implements IUserRepository {
@@ -64,5 +67,14 @@ public class UserRepository implements IUserRepository {
                 (rs, rowNum) -> new UserLogin(rs.getLong("CredentialsId"), rs.getString("Email"), rs.getString("Password")), userLogin.getEmail()
         );
     }
-
+    @Override
+    public List<User> requestFullUserList(){
+        String sql = "SELECT * FROM Users LEFT JOIN Credentials on Users.credentialsId = Credentials.CredentialsId";
+        return jdbcTemplate.query(sql,(rs, rowNum) ->
+                new User(rs.getLong("UserId"),
+                        rs.getString("Name"),
+                        rs.getString("LastName"),
+                        Gender.valueOf(rs.getString("Gender")),
+                        new UserLogin(rs.getString("Email"), rs.getString("Password"))));
+    }
 }
