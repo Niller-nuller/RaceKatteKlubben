@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class CatService {
 
-    private ICatRepository catRepository;
+    private final ICatRepository catRepository;
 
     @Autowired
     public CatService(ICatRepository catRepository) {
