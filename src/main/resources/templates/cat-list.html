@@ -24,16 +24,16 @@
         <th>Birthday</th>
     </tr>
     <tr th:each="cat : ${catList}">
-    <td th:text="${cat.breedCode}">
-    <td th:text="${cat.furColorCode}">
-    <td th:text="${cat.patternCode}">
-    <td th:text="${cat.eyeCode}">
-    <td th:text="${cat.fullCode}">
-    <td th:text="${cat.name}">
-    <td th:text="${cat.gender}">
-    <td th:text="${cat.age}">
-    <td th:text="${cat.dateOfBirth}">
-  </td>
+        <td th:text="${cat.breedCode}">
+        <td th:text="${cat.furColorCode}">
+        <td th:text="${cat.patternCode}">
+        <td th:text="${cat.eyeCode}">
+        <td th:text="${cat.fullCode}">
+        <td th:text="${cat.name}">
+        <td th:text="${cat.gender}">
+        <td th:text="${cat.age}">
+        <td th:text="${cat.dateOfBirth}">
+        </td>
 </table>
 
 <h3><a th:href="@{/}">Tilbage til home</a></h3>

@@ -37,7 +37,7 @@ public class Cat {
                long breedId,
                long fatherId,
                long motherId
-               ) {
+    ) {
         this.id = id;
         this.name = name;
         this.gender = gender;
