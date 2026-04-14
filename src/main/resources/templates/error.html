@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <div class="container">
     <div class="error-box">
         <h1 th:text="${status}">Fejl</h1>

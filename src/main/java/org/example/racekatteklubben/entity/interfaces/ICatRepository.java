@@ -10,4 +10,5 @@ public interface ICatRepository {
 
     List<Cat> requestFullFilteredCatList(String criteria);
     void createCat(Cat cat);
+    List<Cat> createListOfCatsById(long id);
 }

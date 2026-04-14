@@ -1,6 +1,7 @@
 package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.entity.Cat;
 import org.example.racekatteklubben.entity.Gender;
 import org.example.racekatteklubben.use_case.CatService;
@@ -31,10 +32,11 @@ public class CreateCatController {
     @PostMapping("/create")
     public String createCat(@ModelAttribute Cat cat, HttpSession session, Model model) {
 
-        Long ownerId = (Long) session.getAttribute("loggedInUser");
-        if (ownerId == null) {
-            // ERROR PAGE
+        Auth AuthUser = (Auth) session.getAttribute("AuthUser");
+        if (AuthUser == null) {
+            return "redirect:/login";
         }
+        long ownerId = AuthUser.getId();
 
         // Simpel validering af påkrævede felter
         if (cat.getName() == null || cat.getName().isBlank()
@@ -45,6 +47,6 @@ public class CreateCatController {
         }
 
         catService.createCat(cat, ownerId);
-        return "redirect:/myprofile/{ownerId}";
+        return "redirect:/myprofile";
     }
 }

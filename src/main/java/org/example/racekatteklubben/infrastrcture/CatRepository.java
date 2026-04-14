@@ -46,6 +46,32 @@ public class CatRepository implements ICatRepository {
 
     @Override
     public void createCat(Cat cat) {
-        System.out.println("Kat oprettet: " + cat.getName());
+        String sql = "INSERT INTO cats (name, gender, age, dateOfBirth, isDead, dateOfDeath, " +
+                "furColorCode, patternCode, breedCode, eyeCode, fullCode, " +
+                "ownerId, breederId, fatherId, motherId) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        jdbcTemplate.update(sql,
+                cat.getName(),
+                cat.getGender() != null ? cat.getGender().name() : null,
+                cat.getAge(),
+                cat.getDateOfBirth(),
+                cat.isDead(),
+                cat.getDateOfDeath(),
+                cat.getFurColorCode(),
+                cat.getPatternCode(),
+                cat.getBreedCode(),
+                cat.getEyeCode(),
+                cat.getFullCode(),
+                cat.getOwnerId(),
+                cat.getBreedId(),
+                cat.getFatherId(),
+                cat.getMotherId());
+    }
+
+    @Override
+    public List<Cat> createListOfCatsById(long id) {
+        String sql = "SELECT * FROM cats WHERE ownerId = ?";
+        return createCatList(sql);
     }
 }

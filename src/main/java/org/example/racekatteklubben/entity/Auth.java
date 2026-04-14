@@ -11,11 +11,12 @@ public class Auth {
         this.email = email;
         this.password = password;
     }
-    public UserLogin(long id, String enail, String password){
+    public Auth(long id, String email, String password) {
         this.id = id;
-        this.email = enail;
+        this.email = email;
         this.password = password;
     }
+
     public Long getId() {
         return id;
     }

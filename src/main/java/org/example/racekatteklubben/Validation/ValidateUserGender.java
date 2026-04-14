@@ -14,10 +14,10 @@ public class ValidateUserGender implements ValidationStrategy{
     @Override
     public void validate(Object object) {
         if(object == null || !(object.equals(""))) {
-            throw new UserValidationException("The User object is null or empty");
+            throw new UserValidationException("The User object is null or empty when checking for gender");
         }
         if(!(object instanceof User user)) {
-            throw new UserValidationException("The object is not a User object");
+            throw new UserValidationException("The object is not a User object when checking for gender");
         }
         if(user.getGender() == null) {
             throw new UserValidationException("The User's gender is null");

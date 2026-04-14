@@ -1,14 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home Screen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hjem — Racekatteklubben</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1>Home Screen</h1>
-<h3><a th:href="@{cat/cat-list}">Til katte Liste</a> </h3>
-<a href="/login"><button type="button<">Login</button></a>
-<a href="/register"><button type="button<">Register</button></a>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="page-content">
+    <div class="card">
+        <div class="logo-area">
+            <span class="paw-icon">🐾</span>
+            <h1>Race katte klubben</h1>
+            <p>Velkommen til Race katte klubben</p>
+        </div>
+
+        <a th:href="@{/cat/cat-list}" class="btn-primary" style="text-decoration:none; text-align:center; display:block;">
+            Se alle katte
+        </a>
+
+        <div class="divider">eller</div>
+
+        <a th:href="@{/cats/create}" class="btn-secondary">Opret en kat</a>
+    </div>
+</div>
 </body>
 </html>

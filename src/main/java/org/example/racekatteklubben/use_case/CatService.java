@@ -13,11 +13,12 @@ import java.util.List;
 public class CatService {
 
     private final ICatRepository catRepository;
-
+    private final ValidationService validationService;
     @Autowired
-    public CatService(ICatRepository catRepository) {
+    public CatService(ICatRepository catRepository, ValidationService validationService) {
 
         this.catRepository = catRepository;
+        this.validationService = validationService;
     }
 
 
@@ -54,5 +55,9 @@ public class CatService {
 
     private String safe(String s) {
         return s == null ? "" : s;
+    }
+
+    public List<Cat> listCatById (long id){
+        return catRepository.createListOfCatsById(id);
     }
 }

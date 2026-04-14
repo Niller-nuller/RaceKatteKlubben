@@ -16,6 +16,7 @@ public class UserService {
     public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     public List<User> handleGetAllUsers(){
         return userRepository.requestFullUserList();
     }
