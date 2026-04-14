@@ -1,9 +1,9 @@
 package org.example.racekatteklubben.use_case;
 
-import org.example.racekatteklubben.entity.UserLogin;
+import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,26 +13,26 @@ public class RegisterService {
     public RegisterService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    public void register(UserLogin userLogin){
-        notEmptyVerify(userLogin);
-        emailVerify(userLogin);
-        String hashed = BCrypt.hashpw(userLogin.getPassword(), BCrypt.gensalt());
-        userLogin.setPassword(hashed);
-        userRepository.createUserCredentials(userLogin);
+    public void register(Auth auth){
+        notEmptyVerify(auth);
+        emailVerify(auth);
+        String hashed = BCrypt.hashpw(auth.getPassword(), BCrypt.gensalt());
+        auth.setPassword(hashed);
+        userRepository.createUserCredentials(auth);
     }
 
-    public void emailVerify(UserLogin userLogin) throws VerifyError{
-        String email = userRepository.getEmail(userLogin);
+    public void emailVerify(Auth auth) throws VerifyError{
+        String email = userRepository.getEmail(auth);
         if(!email.isBlank()){
             throw new VerifyError("Email already exists");
         }
     }
 
-    public void notEmptyVerify(UserLogin userLogin) throws VerifyError{
-        if(userLogin.getEmail() == null || !userLogin.getEmail().isBlank()){
+    public void notEmptyVerify(Auth auth) throws VerifyError{
+        if(auth.getEmail() == null || !auth.getEmail().isBlank()){
             throw new VerifyError("Invalid email input");
         }
-        if(userLogin.getPassword() == null || !userLogin.getPassword().isBlank()){
+        if(auth.getPassword() == null || !auth.getPassword().isBlank()){
             throw new VerifyError("Invalid password input");
         }
     }

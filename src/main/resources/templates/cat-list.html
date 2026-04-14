@@ -7,6 +7,10 @@
 </head>
 <body>
 <h1>Cat List</h1>
+<form th:action="@{cat.list}" method="get">
+    <input type="text" name="criteria" th:value="${searchCriteria}" placeholder="search by name...">
+    <button type="submit">Search</button>
+</form>
 <table>
     <tr>
         <th>Breed</th>

@@ -5,22 +5,24 @@ import org.example.racekatteklubben.entity.interfaces.ICatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 public class CatService {
 
-    private ICatRepository catRepository;
+    private final ICatRepository catRepository;
 
     @Autowired
     public CatService(ICatRepository catRepository) {
+
         this.catRepository = catRepository;
     }
 
-    public List<Cat> handleGetFullListOfCats(){
-        return catRepository.requestFullCatList();
+
+    public List<Cat> handleGetFullListOfCats(String criteria){
+        return catRepository.requestFullFilteredCatList(criteria);
     }
 
     public void createCat(Cat cat, long ownerId) {
