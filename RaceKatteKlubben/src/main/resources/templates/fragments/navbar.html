@@ -7,20 +7,18 @@
         <span>🐾</span> Racekatteklubben
     </a>
     <div class="navbar-links">
-        <a th:href="@{/index.html}" class="navbar-link">Hjem</a>
-        <a th:href="@{/cat-list.html}" class="navbar-link">Se katte</a>
-        <a th:href="@{/user/list.html}" class="navbar-link">Medlemsliste</a>
-        <a th:href="@{/index.html}" class="navbar-link">Turneringer</a>
+        <a th:href="@{/}" class="navbar-link">Hjem</a>
+        <a th:href="@{/cat/cat-list}" class="navbar-link">Se katte</a>
+        <a th:href="@{/}" class="navbar-link">Medlemsliste</a>
+        <a th:href="@{/}" class="navbar-link">Turneringer</a>
 
-
-        <th:block th:if="${session.loggedInUser != null}">
-            <a th:href="@{/myprofile.html}" class="navbar-link navbar-link--accent">Log ud</a>
+        <th:block th:if="${session.AuthUser != null}">
+            <a th:href="@{/myprofile}" class="navbar-link">Min side</a>
             <a th:href="@{/logout}" class="navbar-link navbar-link--accent">Log ud</a>
         </th:block>
 
-
-        <th:block th:if="${session.loggedInUser == null}">
-            <a th:href="@{/Login}" class="navbar-link navbar-link--accent">Login</a>
+        <th:block th:if="${session.AuthUser == null}">
+            <a th:href="@{/login}" class="navbar-link navbar-link--accent">Login</a>
         </th:block>
     </div>
 </nav>

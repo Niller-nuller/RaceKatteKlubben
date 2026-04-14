@@ -30,7 +30,7 @@ public class LoginController {
             model.addAttribute("error", "Ingen bruger fundet med den email");
             return "/login";
         }
-        session.setAttribute("loggedInUser", userLogin);
+        session.setAttribute("AuthUser", userLogin);
         System.out.println("User er: " + userLogin.getEmail() + ", " + userLogin.getPassword());
         return "redirect:/";
     }
