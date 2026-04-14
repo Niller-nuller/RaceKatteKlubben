@@ -25,8 +25,10 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam Auth Auth, HttpSession session) {
-        session.setAttribute("loggedInUser ", logInService.login(Auth));
+    public String login(@ModelAttribute("Auth") Auth auth, HttpSession session, Model model) {
+//        logInService.login(auth);
+
+        session.setAttribute("AuthUser", logInService.login(auth));
         return "redirect:/";
     }
 }

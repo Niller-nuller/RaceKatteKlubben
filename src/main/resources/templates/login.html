@@ -12,12 +12,12 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <div>
     <h1>Vær sød at logge ind</h1>
-    <form th:action="@{/login}" th:object="@{Auth}" method="post">
+    <form th:action="@{/login}" th:object="${Auth}" method="post">
         <label for="email">Email:</label><br>
-        <input type="text" id="email" th:field="*{Auth.email}"><br><br>
+        <input type="text" id="email" th:field="*{email}"><br><br>
 
         <label for="password">Password:</label><br>
-        <input type="password" id="password" th:field="*{Auth.password}"><br><br>
+        <input type="password" id="password" th:field="*{password}"><br><br>
 
         <button type="submit">Log ind</button>
         <a href="/register"><button type="button">Register</button></a>
