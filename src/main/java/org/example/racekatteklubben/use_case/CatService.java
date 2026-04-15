@@ -1,5 +1,6 @@
 package org.example.racekatteklubben.use_case;
 
+import org.example.racekatteklubben.Validation.ValidationType;
 import org.example.racekatteklubben.entity.Cat;
 import org.example.racekatteklubben.entity.interfaces.ICatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class CatService {
 
 
     public List<Cat> handleGetFullListOfCats(String criteria){
+        validationService.validate(ValidationType.CRITERIA, criteria);
         return catRepository.requestFullFilteredCatList(criteria);
     }
 
@@ -58,5 +60,28 @@ public class CatService {
 
     public List<Cat> listCatById (long id){
         return catRepository.createListOfCatsById(id);
+    }
+
+    public Cat getCatById(long id) {
+        return catRepository.findById(id);
+    }
+
+    public void updateCat(Cat cat) {
+        if (cat.getDateOfBirth() != null) {
+            cat.setAge((int) ChronoUnit.YEARS.between(
+                    cat.getDateOfBirth(), LocalDate.now()));
+        }
+
+        if (!cat.isDead()) {
+            cat.setDateOfDeath(null);
+        }
+
+        cat.setFullCode(buildFullCode(cat));
+
+        catRepository.updateCat(cat);
+    }
+    public void annihilateCat(long id, long ownerId) {
+        catRepository.annihilateCat(id, ownerId);
+
     }
 }

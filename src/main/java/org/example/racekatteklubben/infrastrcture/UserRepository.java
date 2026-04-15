@@ -15,7 +15,6 @@ public class UserRepository implements IUserRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-
     public UserRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -33,15 +32,29 @@ public class UserRepository implements IUserRepository {
                 userAuth.getEmail()
         );
     }
+
     @Override
     public User getUserFromAuth(Auth userAuth){
-        String sql = "SELECT * FROM Users WHERE Users.credentialsId = ?";
+        String sql = "SELECT * FROM Users LEFT JOIN Credentials ON Users.CredentialsId = Credentials.CredentialsId WHERE Users.CredentialsId = ?";
         return jdbcTemplate.queryForObject(sql,
                 (rs, rowNum) -> new User(
-
-                ) , userAuth.getId()
+                        rs.getLong("UserId"),
+                        rs.getString("Name"),
+                        rs.getString("LastName"),
+                        Gender.valueOf(rs.getString("Gender")),
+                        new Auth(
+                                userAuth.getEmail(), ""
+                        )
+                ), userAuth.getId()
         );
     }
+
+    @Override
+    public void updateUser(User user) {
+        String sql = "UPDATE Users SET Name = ?, LastName = ?, Gender = ? WHERE UserId = ?";
+        jdbcTemplate.update(sql, user.getName(), user.getLastName(), user.getGender().name(), user.getId());
+    }
+
     @Override
     public String getEmail(Auth userAuth){
         String sql = "SELECT * FROM Credentials WHERE email = ?";
@@ -76,13 +89,29 @@ public class UserRepository implements IUserRepository {
         );
     }
     @Override
-    public List<User> requestFullUserList(){
-        String sql = "SELECT * FROM Users LEFT JOIN Credentials on Users.credentialsId = Credentials.CredentialsId";
+    public List<User> requestFullUserList(String sql, String safeCriteria){
         return jdbcTemplate.query(sql,(rs, rowNum) ->
                 new User(rs.getLong("UserId"),
                         rs.getString("Name"),
                         rs.getString("LastName"),
                         Gender.valueOf(rs.getString("Gender")),
-                        new Auth(rs.getString("Email"), rs.getString("Password"))));
+                        new Auth(rs.getString("Email"), rs.getString("Password"))),safeCriteria);
+    }
+    @Override
+    public List<User> requestFullFilteredUserList(String criteria){
+        String sql = "SELECT * FROM Users LEFT JOIN Credentials on Users.credentialsId = Credentials.CredentialsId WHERE name Like ?";
+        String safeCriteria = "%" + criteria + "%";
+        return requestFullUserList(sql, safeCriteria);
+    }
+
+    @Override
+    public void requestDeleteUser(User user){
+        String deleteCatsSql = "DELETE FROM Cats WHERE OwnerId = ?";
+        String deleteUserSql = "DELETE FROM Users WHERE UserId = ?";
+        String deleteCredentialsSql = "DELETE FROM Credentials WHERE CredentialsId = ?";
+
+        jdbcTemplate.update(deleteCatsSql, user.getId());
+        jdbcTemplate.update(deleteUserSql, user.getId());
+        jdbcTemplate.update(deleteCredentialsSql, user.getId());
     }
 }

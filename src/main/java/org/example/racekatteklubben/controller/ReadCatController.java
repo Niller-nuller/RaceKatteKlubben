@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/cat")
@@ -19,10 +20,9 @@ public class ReadCatController {
     }
 
     @GetMapping("/cat-list")
-    public String catList(Model model,String criteria){
+    public String catList(Model model,@RequestParam(value = "criteria", required = false, defaultValue = "") String criteria){
         model.addAttribute("catList", catService.handleGetFullListOfCats(criteria));
         model.addAttribute("searchCriteria", criteria);
-
         return "cat-list";
     }
 }

@@ -22,7 +22,7 @@ public class RegisterService {
         this.userRepository = userRepository;
         this.validationService = validationService;
     }
-    public void register(RegisterWrapper registerWrapper) {
+    public User register(RegisterWrapper registerWrapper) {
         Auth auth = registerWrapper.getAuthLogin();
         User user = registerWrapper.getUser();
         String hashed = BCrypt.hashpw(auth.getPassword(), BCrypt.gensalt());
@@ -31,6 +31,8 @@ public class RegisterService {
         validateAuth(auth);
         userRepository.createUserCredentials(auth);
         userRepository.createUser(user,auth);
+        user = userRepository.getUserFromAuth(auth);
+        return user;
     }
 
     private void validateUser(User user) {

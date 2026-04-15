@@ -10,7 +10,7 @@ import java.util.zip.DataFormatException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
-    public String handleException(ValidatorException message, Model model) {
+    public String handleException(RuntimeException message, Model model) {
         model.addAttribute("error", message.getMessage());
         return "error";
     }
@@ -21,6 +21,11 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler
     public String handleException(DataFormatException message, Model model) {
+        model.addAttribute("error", message.getMessage());
+        return "error";
+    }
+    @ExceptionHandler
+    public String handleException(ValidatorException message, Model model) {
         model.addAttribute("error", message.getMessage());
         return "error";
     }

@@ -2,7 +2,6 @@ package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.racekatteklubben.entity.Auth;
-import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.use_case.LogInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +24,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute("Auth") Auth auth, HttpSession session, Model model) {
+    public String login(@ModelAttribute("Auth") Auth auth, HttpSession session) {
 
-        session.setAttribute("AuthUser", logInService.login(auth));
+        session.setAttribute("currentUser", logInService.login(auth));
 
         return "redirect:/";
     }

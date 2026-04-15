@@ -3,7 +3,6 @@ package org.example.racekatteklubben.controller;
 
 import org.example.racekatteklubben.entity.Gender;
 import org.example.racekatteklubben.entity.RegisterWrapper;
-import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.use_case.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +27,8 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("registerWrapper") RegisterWrapper registerWrapper) {
-        registerService.register(registerWrapper);
+    public String register(@ModelAttribute("registerWrapper") RegisterWrapper registerWrapper, HttpSession session) {
+        session.setAttribute("currentUser",registerService.register(registerWrapper));
         return "redirect:/";
     }
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user")
@@ -20,9 +21,9 @@ public class ReadUserController {
    }
 
    @GetMapping("/user-list")
-    public String handleGetAllUsers(Model model){
-       model.addAttribute("userList", userService.handleGetAllUsers());
+    public String handleGetAllUsers(Model model,@RequestParam(value = "criteria", required = false, defaultValue = "") String criteria){
+       model.addAttribute("searchCriteria", criteria);
+       model.addAttribute("userList", userService.handleGetAllUsers(criteria));
        return "user-list";
    }
-
 }

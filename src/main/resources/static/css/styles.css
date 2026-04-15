@@ -516,6 +516,9 @@ body::after { bottom: 10%; right: 8%; transform: rotate(15deg); }
 .info-box .info-row .value { color: var(--text); }
 
 .profile-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
     margin-bottom: 16px;
 }
 

@@ -12,12 +12,12 @@
         <a th:href="@{/user/user-list}" class="navbar-link">Medlemsliste</a>
         <a th:href="@{/}" class="navbar-link">Turneringer</a>
 
-        <th:block th:if="${session.AuthUser != null}">
+        <th:block th:if="${session.currentUser != null}">
             <a th:href="@{/myprofile}" class="navbar-link">Min side</a>
             <a th:href="@{/logout}" class="navbar-link navbar-link--accent">Log ud</a>
         </th:block>
 
-        <th:block th:if="${session.AuthUser == null}">
+        <th:block th:if="${session.currentUser == null}">
             <a th:href="@{/login}" class="navbar-link navbar-link--accent">Login</a>
         </th:block>
     </div>

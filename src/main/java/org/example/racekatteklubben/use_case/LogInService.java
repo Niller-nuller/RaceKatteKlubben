@@ -12,14 +12,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LogInService {
-    private final HttpSession session;
     private final IUserRepository userRepository;
     private final ValidationService validationService;
     @Autowired
     public LogInService(IUserRepository userRepository,ValidationService validationService, HttpSession session) {
         this.userRepository = userRepository;
         this.validationService = validationService;
-        this.session = session;
     }
 
     public User login(Auth loginRequest) {

@@ -1,5 +1,6 @@
 package org.example.racekatteklubben.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Cat {
@@ -8,9 +9,9 @@ public class Cat {
     private String name;
     private Gender gender;
     private int age;
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateOfBirth;
     private boolean isDead;
-    private LocalDateTime dateOfDeath;
+    private LocalDate dateOfDeath;
     private String furColorCode;
     private String patternCode;
     private String breedCode;
@@ -25,9 +26,9 @@ public class Cat {
                String name,
                Gender gender,
                int age,
-               LocalDateTime dateOfBirth,
+               LocalDate dateOfBirth,
                boolean isDead,
-               LocalDateTime dateOfDeath,
+               LocalDate dateOfDeath,
                String furColorCode,
                String patternCode,
                String breedCode,
@@ -61,9 +62,9 @@ public class Cat {
     public String getName() { return name; }
     public Gender getGender() { return gender; }
     public int getAge() { return age; }
-    public LocalDateTime getDateOfBirth() { return dateOfBirth; }
+    public LocalDate getDateOfBirth() { return dateOfBirth; }
     public boolean isDead() { return isDead; }
-    public LocalDateTime getDateOfDeath() { return dateOfDeath; }
+    public LocalDate getDateOfDeath() { return dateOfDeath; }
     public String getFurColorCode() { return furColorCode; }
     public String getPatternCode() { return patternCode; }
     public String getBreedCode() { return breedCode; }
@@ -79,9 +80,9 @@ public class Cat {
     public void setName(String name) { this.name = name; }
     public void setGender(Gender gender) { this.gender = gender; }
     public void setAge(int age) { this.age = age; }
-    public void setDateOfBirth(LocalDateTime dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
     public void setDead(boolean dead) { isDead = dead; }
-    public void setDateOfDeath(LocalDateTime dateOfDeath) { this.dateOfDeath = dateOfDeath; }
+    public void setDateOfDeath(LocalDate dateOfDeath) { this.dateOfDeath = dateOfDeath; }
     public void setFurColorCode(String furColorCode) { this.furColorCode = furColorCode; }
     public void setPatternCode(String patternCode) { this.patternCode = patternCode; }
     public void setBreedCode(String breedCode) { this.breedCode = breedCode; }

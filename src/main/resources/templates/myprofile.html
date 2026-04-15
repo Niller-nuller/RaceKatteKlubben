@@ -15,11 +15,11 @@
     <div class="profile-hero">
         <div class="profile-image">Billede</div>
         <div class="profile-right">
-            <div class="info-name" th:text="${AuthUser.email}">jonas@email.dk</div>
+            <div class="info-name" th:text="|${user.getName()} ${user.getLastName()}|">jonas@email.dk</div>
             <div class="info-box">
                 <div class="info-row">
                     <span class="label">Email</span>
-                    <span class="value" th:text="${AuthUser.email}">jonas@email.dk</span>
+                    <span class="value" th:text="${authUser.email}">jonas@email.dk</span>
                 </div>
                 <div class="info-row">
                     <span class="label">Antal katte</span>
@@ -27,11 +27,17 @@
                 </div>
             </div>
         </div>
+        <div class="cat-list-actions">
+            <a th:href="@{/user/delete/{id}(id=${user.id})}" class="cat-edit-btn">❌ Delete</a>
+        </div>
     </div>
 
     <div class="profile-actions">
         <a th:href="@{/cats/create}" class="btn-primary" style="text-decoration:none; text-align:center; display:inline-block; width:auto; padding:14px 32px;">
             + Tilføj kat
+        </a>
+        <a th:href="@{/user/edit}" class="btn-secondary" style="text-decoration:none; display:inline-block; width:auto; padding:14px 32px;">
+            Rediger profil
         </a>
     </div>
 
@@ -74,6 +80,12 @@
                         <span class="label">Status</span>
                         <span class="value" style="color: var(--error);">Død</span>
                     </div>
+                </div>
+            </div>
+            <div class="cat-list-actions">
+                <a th:href="@{/cats/edit/{id}(id=${cat.id})}" class="cat-edit-btn">✎ Rediger</a>
+                <div class="cat-list-actions">
+                    <a th:href="@{/cats/annihilate/{id}(id=${cat.id})}" class="cat-edit-btn">❌ Delete</a>
                 </div>
             </div>
         </div>

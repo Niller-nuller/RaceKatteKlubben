@@ -10,6 +10,10 @@
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1>user List</h1>
+<form th:action="@{user-list}" method="get">
+    <input type="text" name="criteria" th:value="${searchCriteria}" placeholder="search by name...">
+    <button type="submit">Search</button>
+</form>
 <table>
     <tr>
         <th>Navn</th>
