@@ -6,5 +6,6 @@ public enum ValidationType {
     USER_NAME,
     USER_GENDER,
     CAT,
-    LOGIN
+    LOGIN,
+    LIST
 }

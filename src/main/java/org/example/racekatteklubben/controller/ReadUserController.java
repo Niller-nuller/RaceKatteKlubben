@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/user")
 public class ReadUserController {
-   private UserService userService;
+
+   private final UserService userService;
+
    @Autowired
    public ReadUserController(UserService userService){
        this.userService = userService;

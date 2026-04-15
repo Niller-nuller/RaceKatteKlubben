@@ -28,9 +28,9 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("UserLogin") RegisterWrapper registerWrapper) {
+    public String register(@ModelAttribute("registerWrapper") RegisterWrapper registerWrapper) {
         registerService.register(registerWrapper);
-        return "index";
+        return "redirect:/";
     }
 
 

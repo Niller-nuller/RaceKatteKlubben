@@ -14,7 +14,7 @@ public class ValidateUserName implements ValidationStrategy {
 
     @Override
     public void validate(Object object) {
-        if(object == null || !(object.equals(""))) {
+        if(object == null || (object.equals(""))) {
             throw new UserValidationException("The User object is when trying to checking for name is null or empty");
         }
         if(!(object instanceof User user)) {

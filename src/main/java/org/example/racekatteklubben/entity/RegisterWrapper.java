@@ -15,10 +15,10 @@ public class RegisterWrapper {
     public void setUser(User user) {
         this.user = user;
     }
-    public Auth getUserLogin() {
+    public Auth getAuthLogin() {
         return authLogin;
     }
-    public void setUserLogin(Auth userAuth) {
+    public void setAuthLogin(Auth userAuth) {
         this.authLogin = userAuth;
     }
 }

@@ -26,9 +26,9 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute("Auth") Auth auth, HttpSession session, Model model) {
-//        logInService.login(auth);
 
         session.setAttribute("AuthUser", logInService.login(auth));
+
         return "redirect:/";
     }
 }

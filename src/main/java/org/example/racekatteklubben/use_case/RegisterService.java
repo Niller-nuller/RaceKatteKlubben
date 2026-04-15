@@ -23,7 +23,7 @@ public class RegisterService {
         this.validationService = validationService;
     }
     public void register(RegisterWrapper registerWrapper) {
-        Auth auth = registerWrapper.getUserLogin();
+        Auth auth = registerWrapper.getAuthLogin();
         User user = registerWrapper.getUser();
         String hashed = BCrypt.hashpw(auth.getPassword(), BCrypt.gensalt());
         auth.setPassword(hashed);
