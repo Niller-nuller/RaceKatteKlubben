@@ -1,0 +1,214 @@
+Index: src/main/java/org/example/racekatteklubben/use_case/RegisterService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.use_case;\r\n\r\nimport jakarta.servlet.http.HttpSession;\r\nimport org.example.racekatteklubben.entity.RegisterWrapper;\r\nimport org.example.racekatteklubben.entity.User;\r\nimport org.example.racekatteklubben.entity.UserLogin;\r\nimport org.example.racekatteklubben.entity.interfaces.IUserRepository;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.mindrot.jbcrypt.BCrypt;\r\nimport org.springframework.boot.web.server.servlet.Session;\r\nimport org.springframework.stereotype.Service;\r\n\r\n@Service\r\npublic class RegisterService {\r\n\r\n    private HttpSession session;\r\n    private final IUserRepository userRepository;\r\n    @Autowired\r\n    public RegisterService(IUserRepository userRepository) {\r\n        this.userRepository = userRepository;\r\n    }\r\n    public void register(RegisterWrapper registerWrapper) {\r\n        UserLogin userLogin = registerWrapper.getUserLogin();\r\n        User user = registerWrapper.getUser();\r\n        notEmptyVerify(userLogin);\r\n        emailVerify(userLogin);\r\n        String hashed = BCrypt.hashpw(userLogin.getPassword(), BCrypt.gensalt());\r\n        userLogin.setPassword(hashed);\r\n        checkUserInput(user);\r\n        userRepository.createUserCredentials(userLogin);\r\n        userRepository.createUser(user,userLogin);\r\n    }\r\n\r\n    public void emailVerify(UserLogin userLogin) throws VerifyError{\r\n        String email = userRepository.getEmail(userLogin);\r\n        if(!(email == null)){\r\n            throw new VerifyError(\"Email already exists\");\r\n        }\r\n    }\r\n\r\n    public void notEmptyVerify(UserLogin userLogin) throws VerifyError{\r\n        if(userLogin.getEmail() == null || userLogin.getEmail().isBlank()){\r\n            throw new VerifyError(\"Invalid email input\");\r\n        }\r\n        if(userLogin.getPassword() == null || userLogin.getPassword().isBlank()){\r\n            throw new VerifyError(\"Invalid password input\");\r\n        }\r\n    }\r\n    public void checkUserInput(User user) {\r\n        checkNameInput(user);\r\n        checkLastNameInput(user);\r\n        checkGenderInput(user);\r\n    }\r\n    public void checkNameInput(User user) {\r\n        if (user.getName() == null || user.getName().isBlank()) {\r\n            throw new IllegalArgumentException(\"name is required\");\r\n        }\r\n    }\r\n    public void checkLastNameInput(User user) {\r\n        if (user.getLastName() == null || user.getLastName().isBlank()) {\r\n            throw new IllegalArgumentException(\"Last name is required\");\r\n        }\r\n    }\r\n    public void checkGenderInput(User user){\r\n        if (user.getGender() == null){\r\n            throw new IllegalArgumentException(\"Gender is required\");\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/use_case/RegisterService.java b/src/main/java/org/example/racekatteklubben/use_case/RegisterService.java
+--- a/src/main/java/org/example/racekatteklubben/use_case/RegisterService.java	(revision cd0f474ce45eb49eeac180d57d569708b8bff264)
++++ b/src/main/java/org/example/racekatteklubben/use_case/RegisterService.java	(date 1776158207408)
+@@ -1,19 +1,18 @@
+ package org.example.racekatteklubben.use_case;
+ 
+-import jakarta.servlet.http.HttpSession;
++import org.example.racekatteklubben.Validation.ValidationType;
++import org.example.racekatteklubben.entity.Auth;
+ import org.example.racekatteklubben.entity.RegisterWrapper;
+ import org.example.racekatteklubben.entity.User;
+ import org.example.racekatteklubben.entity.UserLogin;
+ import org.example.racekatteklubben.entity.interfaces.IUserRepository;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.mindrot.jbcrypt.BCrypt;
+-import org.springframework.boot.web.server.servlet.Session;
+ import org.springframework.stereotype.Service;
+ 
+ @Service
+ public class RegisterService {
+ 
+-    private HttpSession session;
+     private final IUserRepository userRepository;
+     @Autowired
+     public RegisterService(IUserRepository userRepository) {
+@@ -22,48 +21,22 @@
+     public void register(RegisterWrapper registerWrapper) {
+         UserLogin userLogin = registerWrapper.getUserLogin();
+         User user = registerWrapper.getUser();
+-        notEmptyVerify(userLogin);
+-        emailVerify(userLogin);
+-        String hashed = BCrypt.hashpw(userLogin.getPassword(), BCrypt.gensalt());
+-        userLogin.setPassword(hashed);
+-        checkUserInput(user);
+-        userRepository.createUserCredentials(userLogin);
+-        userRepository.createUser(user,userLogin);
++        validateUser(user);
++        validateLogin(Auth);
++        String hashed = BCrypt.hashpw(Auth.getPassword(), BCrypt.gensalt());
++        Auth.setPassword(hashed);
++        userRepository.createUserCredentials(Auth);
++        userRepository.createUser(user,Auth);
+     }
+ 
+-    public void emailVerify(UserLogin userLogin) throws VerifyError{
+-        String email = userRepository.getEmail(userLogin);
+-        if(!(email == null)){
+-            throw new VerifyError("Email already exists");
+-        }
++    private void validateUser(User user) {
++        validationService.validate(ValidationType.USER_NAME, user);
++        validationService.validate(ValidationType.USER_GENDER, user);
++    }
++    private void validateLogin(Auth Auth) {
++        validationService.validate(ValidationType.PASSWORD, Auth);
++        validationService.validate(ValidationType.EMAIL, Auth);
+     }
+ 
+-    public void notEmptyVerify(UserLogin userLogin) throws VerifyError{
+-        if(userLogin.getEmail() == null || userLogin.getEmail().isBlank()){
+-            throw new VerifyError("Invalid email input");
+-        }
+-        if(userLogin.getPassword() == null || userLogin.getPassword().isBlank()){
+-            throw new VerifyError("Invalid password input");
+-        }
+-    }
+-    public void checkUserInput(User user) {
+-        checkNameInput(user);
+-        checkLastNameInput(user);
+-        checkGenderInput(user);
+-    }
+-    public void checkNameInput(User user) {
+-        if (user.getName() == null || user.getName().isBlank()) {
+-            throw new IllegalArgumentException("name is required");
+-        }
+-    }
+-    public void checkLastNameInput(User user) {
+-        if (user.getLastName() == null || user.getLastName().isBlank()) {
+-            throw new IllegalArgumentException("Last name is required");
+-        }
+-    }
+-    public void checkGenderInput(User user){
+-        if (user.getGender() == null){
+-            throw new IllegalArgumentException("Gender is required");
+-        }
+-    }
++
+ }
+\ No newline at end of file
+Index: src/main/java/org/example/racekatteklubben/controller/ReadUserController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.controller;\r\n\r\n\r\nimport org.example.racekatteklubben.use_case.UserService;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Controller;\r\nimport org.springframework.ui.Model;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\n\r\n@Controller\r\n@RequestMapping(\"/user\")\r\npublic class ReadUserController {\r\n   private UserService userService;\r\n   @Autowired\r\n   public ReadUserController(UserService userService){\r\n       this.userService = userService;\r\n   }\r\n\r\n   @GetMapping(\"/user-list\")\r\n    public String handleGetAllUsers(Model model){\r\n       model.addAttribute(\"userList\", userService.handleGetAllUsers());\r\n       return \"user-list\";\r\n   }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/controller/ReadUserController.java b/src/main/java/org/example/racekatteklubben/controller/ReadUserController.java
+--- a/src/main/java/org/example/racekatteklubben/controller/ReadUserController.java	(revision cd0f474ce45eb49eeac180d57d569708b8bff264)
++++ b/src/main/java/org/example/racekatteklubben/controller/ReadUserController.java	(date 1776158207405)
+@@ -11,7 +11,7 @@
+ @Controller
+ @RequestMapping("/user")
+ public class ReadUserController {
+-   private UserService userService;
++   private final UserService userService;
+    @Autowired
+    public ReadUserController(UserService userService){
+        this.userService = userService;
+Index: src/main/java/org/example/racekatteklubben/entity/GlobalExceptionHandler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/entity/GlobalExceptionHandler.java b/src/main/java/org/example/racekatteklubben/entity/GlobalExceptionHandler.java
+deleted file mode 100644
+--- a/src/main/java/org/example/racekatteklubben/entity/GlobalExceptionHandler.java	(revision cd0f474ce45eb49eeac180d57d569708b8bff264)
++++ /dev/null	(revision cd0f474ce45eb49eeac180d57d569708b8bff264)
+@@ -1,4 +0,0 @@
+-package org.example.racekatteklubben.entity;
+-
+-public class GlobalExceptionHandler {
+-}
+Index: src/main/java/org/example/racekatteklubben/entity/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.entity;\r\n\r\npublic class User {\r\n    private long id;\r\n    private String name;\r\n    private String lastName;\r\n    private Gender gender;\r\n    private UserLogin usersLogin;\r\n\r\n    public User(){}\r\n    public User(String name,String lastName, Gender gender, UserLogin usersLogin) {\r\n        this.name = name;\r\n        this.lastName = lastName;\r\n        this.gender = gender;\r\n        this.usersLogin = usersLogin;\r\n    }\r\n    public User(long id, String name,String lastName, Gender gender, UserLogin usersLogin) {\r\n        this.id = id;\r\n        this.name = name;\r\n        this.lastName = lastName;\r\n        this.gender = gender;\r\n        this.usersLogin = usersLogin;\r\n    }\r\n\r\n    public long getId() {\r\n        return id;\r\n    }\r\n    public void setId(long id) {\r\n    }\r\n    public String getName() {\r\n        return name;\r\n    }\r\n    public  void setName(String name) {\r\n        this.name = name;\r\n    }\r\n    public String getLastName() {\r\n        return lastName;\r\n    }\r\n    public void setLastName(String lastName) {\r\n        this.lastName = lastName;\r\n    }\r\n    public Gender getGender() {\r\n        return gender;\r\n    }\r\n    public void setGender(Gender gender) {\r\n        this.gender = gender;\r\n    }\r\n    public UserLogin getUsersLogin() {\r\n        return usersLogin;\r\n    }\r\n    public void setUsersLogin(UserLogin usersLogin) {\r\n        this.usersLogin = usersLogin;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/entity/User.java b/src/main/java/org/example/racekatteklubben/entity/User.java
+--- a/src/main/java/org/example/racekatteklubben/entity/User.java	(revision cd0f474ce45eb49eeac180d57d569708b8bff264)
++++ b/src/main/java/org/example/racekatteklubben/entity/User.java	(date 1776158207406)
+@@ -5,21 +5,21 @@
+     private String name;
+     private String lastName;
+     private Gender gender;
+-    private UserLogin usersLogin;
++    private Auth authLogin;
+ 
+     public User(){}
+-    public User(String name,String lastName, Gender gender, UserLogin usersLogin) {
++    public User(String name,String lastName, Gender gender, Auth authLogin) {
+         this.name = name;
+         this.lastName = lastName;
+         this.gender = gender;
+-        this.usersLogin = usersLogin;
++        this.authLogin = authLogin;
+     }
+-    public User(long id, String name,String lastName, Gender gender, UserLogin usersLogin) {
++    public User(long id, String name,String lastName, Gender gender, Auth authLogin) {
+         this.id = id;
+         this.name = name;
+         this.lastName = lastName;
+         this.gender = gender;
+-        this.usersLogin = usersLogin;
++        this.authLogin = authLogin;
+     }
+ 
+     public long getId() {
+@@ -45,10 +45,10 @@
+     public void setGender(Gender gender) {
+         this.gender = gender;
+     }
+-    public UserLogin getUsersLogin() {
+-        return usersLogin;
++    public Auth getAutLogin() {
++        return authLogin;
+     }
+-    public void setUsersLogin(UserLogin usersLogin) {
+-        this.usersLogin = usersLogin;
++    public void setAutLogin(Auth authLogin) {
++        this.authLogin = authLogin;
+     }
+ }
+Index: src/main/java/org/example/racekatteklubben/entity/interfaces/IUserRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.entity.interfaces;\r\n\r\nimport org.example.racekatteklubben.entity.User;\r\nimport org.example.racekatteklubben.entity.UserLogin;\r\nimport org.springframework.stereotype.Repository;\r\nimport java.util.List;\r\n\r\n\r\n@Repository\r\npublic interface IUserRepository {\r\n    String getEmail(UserLogin userLogin);\r\n    void createUserCredentials(UserLogin userLogin);\r\n    UserLogin logUserIn(UserLogin userLogin);\r\n    void createUser(User user, UserLogin userLogin);\r\n    UserLogin getUserLoginId(UserLogin userLogin);\r\n    List<User> requestFullUserList();\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/entity/interfaces/IUserRepository.java b/src/main/java/org/example/racekatteklubben/entity/interfaces/IUserRepository.java
+--- a/src/main/java/org/example/racekatteklubben/entity/interfaces/IUserRepository.java	(revision cd0f474ce45eb49eeac180d57d569708b8bff264)
++++ b/src/main/java/org/example/racekatteklubben/entity/interfaces/IUserRepository.java	(date 1776158207407)
+@@ -1,5 +1,6 @@
+ package org.example.racekatteklubben.entity.interfaces;
+ 
++import org.example.racekatteklubben.entity.Auth;
+ import org.example.racekatteklubben.entity.User;
+ import org.example.racekatteklubben.entity.UserLogin;
+ import org.springframework.stereotype.Repository;
+@@ -8,10 +9,10 @@
+ 
+ @Repository
+ public interface IUserRepository {
+-    String getEmail(UserLogin userLogin);
+-    void createUserCredentials(UserLogin userLogin);
+-    UserLogin logUserIn(UserLogin userLogin);
+-    void createUser(User user, UserLogin userLogin);
+-    UserLogin getUserLoginId(UserLogin userLogin);
++    String getEmail(Auth authLogin);
++    void createUserCredentials(Auth authLogin);
++    Auth logUserIn(Auth authLogin);
++    void createUser(User user, Auth authLogin);
++    Auth getUserLoginId(Auth authLogin);
+     List<User> requestFullUserList();
+ }

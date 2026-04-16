@@ -1,0 +1,101 @@
+Index: src/main/java/org/example/racekatteklubben/use_case/RegisterService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.use_case;\r\n\r\nimport jakarta.servlet.http.HttpSession;\r\nimport org.example.racekatteklubben.entity.RegisterWrapper;\r\nimport org.example.racekatteklubben.entity.User;\r\nimport org.example.racekatteklubben.entity.UserLogin;\r\nimport org.example.racekatteklubben.entity.interfaces.IUserRepository;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.mindrot.jbcrypt.BCrypt;\r\nimport org.springframework.boot.web.server.servlet.Session;\r\nimport org.springframework.stereotype.Service;\r\n\r\n@Service\r\npublic class RegisterService {\r\n\r\n    private HttpSession session;\r\n    private final IUserRepository userRepository;\r\n    @Autowired\r\n    public RegisterService(IUserRepository userRepository) {\r\n        this.userRepository = userRepository;\r\n    }\r\n    public void register(RegisterWrapper registerWrapper) {\r\n        UserLogin userLogin = registerWrapper.getUserLogin();\r\n        User user = registerWrapper.getUser();\r\n        notEmptyVerify(userLogin);\r\n        emailVerify(userLogin);\r\n        String hashed = BCrypt.hashpw(userLogin.getPassword(), BCrypt.gensalt());\r\n        userLogin.setPassword(hashed);\r\n        checkUserInput(user);\r\n        userRepository.createUserCredentials(userLogin);\r\n        userRepository.createUser(user,userLogin);\r\n    }\r\n\r\n    public void emailVerify(UserLogin userLogin) throws VerifyError{\r\n        String email = userRepository.getEmail(userLogin);\r\n        if(!(email == null)){\r\n            throw new VerifyError(\"Email already exists\");\r\n        }\r\n    }\r\n\r\n    public void notEmptyVerify(UserLogin userLogin) throws VerifyError{\r\n        if(userLogin.getEmail() == null || userLogin.getEmail().isBlank()){\r\n            throw new VerifyError(\"Invalid email input\");\r\n        }\r\n        if(userLogin.getPassword() == null || userLogin.getPassword().isBlank()){\r\n            throw new VerifyError(\"Invalid password input\");\r\n        }\r\n    }\r\n    public void checkUserInput(User user) {\r\n        checkNameInput(user);\r\n        checkLastNameInput(user);\r\n        checkGenderInput(user);\r\n    }\r\n    public void checkNameInput(User user) {\r\n        if (user.getName() == null || user.getName().isBlank()) {\r\n            throw new IllegalArgumentException(\"name is required\");\r\n        }\r\n    }\r\n    public void checkLastNameInput(User user) {\r\n        if (user.getLastName() == null || user.getLastName().isBlank()) {\r\n            throw new IllegalArgumentException(\"Last name is required\");\r\n        }\r\n    }\r\n    public void checkGenderInput(User user){\r\n        if (user.getGender() == null){\r\n            throw new IllegalArgumentException(\"Gender is required\");\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/use_case/RegisterService.java b/src/main/java/org/example/racekatteklubben/use_case/RegisterService.java
+--- a/src/main/java/org/example/racekatteklubben/use_case/RegisterService.java	(revision a81148692796ca4d167fc509f8a4db80c31845f6)
++++ b/src/main/java/org/example/racekatteklubben/use_case/RegisterService.java	(date 1776158068738)
+@@ -1,69 +1,43 @@
+ package org.example.racekatteklubben.use_case;
+ 
+-import jakarta.servlet.http.HttpSession;
++import org.example.racekatteklubben.Validation.ValidationType;
++import org.example.racekatteklubben.entity.Auth;
+ import org.example.racekatteklubben.entity.RegisterWrapper;
+ import org.example.racekatteklubben.entity.User;
+-import org.example.racekatteklubben.entity.UserLogin;
+ import org.example.racekatteklubben.entity.interfaces.IUserRepository;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.mindrot.jbcrypt.BCrypt;
+-import org.springframework.boot.web.server.servlet.Session;
+ import org.springframework.stereotype.Service;
+ 
+ @Service
+ public class RegisterService {
+ 
+-    private HttpSession session;
+     private final IUserRepository userRepository;
++    private final ValidationService validationService;
+     @Autowired
+-    public RegisterService(IUserRepository userRepository) {
++    public RegisterService(IUserRepository userRepository, ValidationService validationService) {
+         this.userRepository = userRepository;
++        this.validationService = validationService;
+     }
+     public void register(RegisterWrapper registerWrapper) {
+-        UserLogin userLogin = registerWrapper.getUserLogin();
++        Auth Auth = registerWrapper.getUserLogin();
+         User user = registerWrapper.getUser();
+-        notEmptyVerify(userLogin);
+-        emailVerify(userLogin);
+-        String hashed = BCrypt.hashpw(userLogin.getPassword(), BCrypt.gensalt());
+-        userLogin.setPassword(hashed);
+-        checkUserInput(user);
+-        userRepository.createUserCredentials(userLogin);
+-        userRepository.createUser(user,userLogin);
++        validateUser(user);
++        validateLogin(Auth);
++        String hashed = BCrypt.hashpw(Auth.getPassword(), BCrypt.gensalt());
++        Auth.setPassword(hashed);
++        userRepository.createUserCredentials(Auth);
++        userRepository.createUser(user,Auth);
+     }
+ 
+-    public void emailVerify(UserLogin userLogin) throws VerifyError{
+-        String email = userRepository.getEmail(userLogin);
+-        if(!(email == null)){
+-            throw new VerifyError("Email already exists");
+-        }
++    private void validateUser(User user) {
++        validationService.validate(ValidationType.USER_NAME, user);
++        validationService.validate(ValidationType.USER_GENDER, user);
++    }
++    private void validateLogin(Auth Auth) {
++        validationService.validate(ValidationType.PASSWORD, Auth);
++        validationService.validate(ValidationType.EMAIL, Auth);
+     }
+ 
+-    public void notEmptyVerify(UserLogin userLogin) throws VerifyError{
+-        if(userLogin.getEmail() == null || userLogin.getEmail().isBlank()){
+-            throw new VerifyError("Invalid email input");
+-        }
+-        if(userLogin.getPassword() == null || userLogin.getPassword().isBlank()){
+-            throw new VerifyError("Invalid password input");
+-        }
+-    }
+-    public void checkUserInput(User user) {
+-        checkNameInput(user);
+-        checkLastNameInput(user);
+-        checkGenderInput(user);
+-    }
+-    public void checkNameInput(User user) {
+-        if (user.getName() == null || user.getName().isBlank()) {
+-            throw new IllegalArgumentException("name is required");
+-        }
+-    }
+-    public void checkLastNameInput(User user) {
+-        if (user.getLastName() == null || user.getLastName().isBlank()) {
+-            throw new IllegalArgumentException("Last name is required");
+-        }
+-    }
+-    public void checkGenderInput(User user){
+-        if (user.getGender() == null){
+-            throw new IllegalArgumentException("Gender is required");
+-        }
+-    }
++
+ }
+\ No newline at end of file

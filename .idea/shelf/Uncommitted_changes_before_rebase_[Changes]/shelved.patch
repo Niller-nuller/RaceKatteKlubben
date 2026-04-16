@@ -1,0 +1,19 @@
+Index: src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring.application.name=RaceKatteKlubben\r\nspring.datasource.url=jdbc:mysql://localhost:3306/RaceKatteKlubben\r\nspring.datasource.username=root\r\nspring.datasource.password=Rooted\r\nspring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver\r\n\r\nspring.thymeleaf.cache=false\r\n\r\nserver.port=8080
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+--- a/src/main/resources/application.properties	(revision a6a487ad87518e906e78887a8962228df52eab9e)
++++ b/src/main/resources/application.properties	(date 1776353300424)
+@@ -1,7 +1,7 @@
+ spring.application.name=RaceKatteKlubben
+ spring.datasource.url=jdbc:mysql://localhost:3306/RaceKatteKlubben
+ spring.datasource.username=root
+-spring.datasource.password=Rooted
++spring.datasource.password=root
+ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+ 
+ spring.thymeleaf.cache=false

@@ -1,0 +1,19 @@
+Index: src/main/java/org/example/racekatteklubben/use_case/ValidationService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.use_case;\r\n\r\nimport org.example.racekatteklubben.Validation.ValidationStrat;\r\nimport org.example.racekatteklubben.Validation.ValidationType;\r\nimport org.example.racekatteklubben.exception.ValidatorException;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport javax.xml.validation.Validator;\r\nimport java.util.Map;\r\n\r\n@Service\r\npublic class ValidationService {\r\n\r\n    private final Map<String, ValidationStrat> validatorMap;\r\n\r\n    public ValidationService(Map<String, ValidationStrat> validatorMap) {\r\n        this.validatorMap = validatorMap;\r\n    }\r\n\r\n    public void validate(ValidationType type, Object object) {\r\n        ValidationStrat validator = validatorMap.get(type.name());\r\n        if (validator == null) {\r\n            throw new ValidatorException(\"No validate found for type\" + type);\r\n        }\r\n        validator.validate(object);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/use_case/ValidationService.java b/src/main/java/org/example/racekatteklubben/use_case/ValidationService.java
+--- a/src/main/java/org/example/racekatteklubben/use_case/ValidationService.java	(revision 18afe160573f05c770a2740287cb33bf59e700aa)
++++ b/src/main/java/org/example/racekatteklubben/use_case/ValidationService.java	(date 1775817693777)
+@@ -4,8 +4,6 @@
+ import org.example.racekatteklubben.Validation.ValidationType;
+ import org.example.racekatteklubben.exception.ValidatorException;
+ import org.springframework.stereotype.Service;
+-
+-import javax.xml.validation.Validator;
+ import java.util.Map;
+ 
+ @Service

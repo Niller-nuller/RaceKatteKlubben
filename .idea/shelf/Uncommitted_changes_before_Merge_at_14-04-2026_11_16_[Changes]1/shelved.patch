@@ -1,0 +1,25 @@
+Index: src/main/java/org/example/racekatteklubben/controller/RegisterController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.controller;\r\n\r\n\r\nimport org.example.racekatteklubben.entity.Gender;\r\nimport org.example.racekatteklubben.entity.RegisterWrapper;\r\nimport org.example.racekatteklubben.entity.User;\r\nimport org.example.racekatteklubben.entity.UserLogin;\r\nimport org.example.racekatteklubben.use_case.RegisterService;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Controller;\r\nimport org.springframework.ui.Model;\r\nimport org.springframework.web.bind.annotation.*;\r\nimport jakarta.servlet.http.HttpSession;\r\n\r\n@Controller\r\npublic class RegisterController {\r\n\r\n    private final RegisterService registerService;\r\n    @Autowired\r\n    public RegisterController(RegisterService registerService) {\r\n        this.registerService = registerService;\r\n    }\r\n\r\n    @GetMapping(\"/register\")\r\n    public String showRegisterForm(Model model) {\r\n        model.addAttribute(\"genders\", Gender.values());\r\n        model.addAttribute(\"registerWrapper\", new RegisterWrapper());\r\n        return \"register\";\r\n    }\r\n\r\n    @PostMapping(\"/register\")\r\n    public String register(@ModelAttribute(\"UserLogin\") RegisterWrapper registerWrapper) {\r\n        registerService.register(registerWrapper);\r\n        return \"index\";\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/controller/RegisterController.java b/src/main/java/org/example/racekatteklubben/controller/RegisterController.java
+--- a/src/main/java/org/example/racekatteklubben/controller/RegisterController.java	(revision cd0f474ce45eb49eeac180d57d569708b8bff264)
++++ b/src/main/java/org/example/racekatteklubben/controller/RegisterController.java	(date 1776158207405)
+@@ -3,14 +3,11 @@
+ 
+ import org.example.racekatteklubben.entity.Gender;
+ import org.example.racekatteklubben.entity.RegisterWrapper;
+-import org.example.racekatteklubben.entity.User;
+-import org.example.racekatteklubben.entity.UserLogin;
+ import org.example.racekatteklubben.use_case.RegisterService;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
+ import org.springframework.web.bind.annotation.*;
+-import jakarta.servlet.http.HttpSession;
+ 
+ @Controller
+ public class RegisterController {

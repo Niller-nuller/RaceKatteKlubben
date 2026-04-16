@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7b91c639-aedd-468b-936f-74eaf76c2603" name="Changes" comment="Delete virker : b" />
+    <list id="1a3ff9d9-5451-4577-b28a-65d1cfa96241" name="Changes by gusta" comment="" />
+    <list id="850dde70-3cdf-4615-9a5a-1eb0506090b1" name="Changes by johan" comment="" />
+    <list id="3e5c16be-a8a3-45fa-84f8-be66e7d58217" name="Changes by jonas" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="HTML File" />
+        <option value="Exception" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="Origin/Johans-main" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Niller-nuller&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Niller-nuller/RaceKatteKlubben.git&quot;,
+    &quot;accountId&quot;: &quot;4c793b4a-6a84-4776-b915-461ea61c176b&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="3C44q8QokFFtLMBaxGfeb32NrvV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Spring Boot.RaceKatteKlubbenApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/niels/IdeaProjects/RaceKatteKlubben/src/main/resources&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\niels\IdeaProjects\RaceKatteKlubben\src\main\resources" />
+      <recent name="C:\Users\niels\IdeaProjects\RaceKatteKlubben\src\main\resources\templates" />
+      <recent name="C:\Users\niels\IdeaProjects\RaceKatteKlubben\src\main\java\org\example\racekatteklubben\controller" />
+      <recent name="C:\Users\niels\IdeaProjects\RaceKatteKlubben\src\main\java\org\example\racekatteklubben\entity" />
+      <recent name="C:\Users\niels\IdeaProjects\RaceKatteKlubben\src\main\java\org\example\racekatteklubben\entity\interfaces" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\niels\IdeaProjects\RaceKatteKlubben\src\main\resources\templates" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.RaceKatteKlubbenApplication">
+    <configuration name="RaceKatteKlubbenApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="RaceKatteKlubben (1)" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.racekatteklubben.RaceKatteKlubbenApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RaceKatteKlubbenApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="RaceKatteKlubben" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.racekatteklubben.RaceKatteKlubbenApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.30387.90" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7b91c639-aedd-468b-936f-74eaf76c2603" name="Changes" comment="" />
+      <created>1775631697972</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1775631697972</updated>
+      <workItem from="1775631702333" duration="3669000" />
+      <workItem from="1775635597955" duration="9008000" />
+      <workItem from="1775646290872" duration="6398000" />
+      <workItem from="1775808380463" duration="272000" />
+      <workItem from="1775809399978" duration="9101000" />
+      <workItem from="1776153478735" duration="7046000" />
+      <workItem from="1776164509282" duration="3464000" />
+      <workItem from="1776168595738" duration="202000" />
+      <workItem from="1776177402988" duration="4000" />
+      <workItem from="1776178020589" duration="127000" />
+      <workItem from="1776178189765" duration="1523000" />
+      <workItem from="1776197778932" duration="1730000" />
+      <workItem from="1776235171849" duration="17145000" />
+      <workItem from="1776288633388" duration="48000" />
+      <workItem from="1776353267680" duration="330000" />
+      <workItem from="1776357887443" duration="29000" />
+      <workItem from="1776357930995" duration="78000" />
+    </task>
+    <task id="LOCAL-00001" summary="Added jdbc driver">
+      <option name="closed" value="true" />
+      <created>1775638023257</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1775638023257</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Filled in application.properties, Add CatReadController, added a function that goes through controller-service-interface-repository. Added a html index with a href to cat-list, add cat-list.html. Added a table with header and fields for cats.">
+      <option name="closed" value="true" />
+      <created>1775644863056</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1775644863056</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Because I SAY SO">
+      <option name="closed" value="true" />
+      <created>1775646005576</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1775646005576</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Merge alle 4 branche sammen.">
+      <option name="closed" value="true" />
+      <created>1775660595892</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1775660595892</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Changes by jonas">
+      <option name="closed" value="true" />
+      <created>1775660608741</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1775660608741</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Har Lavet en RestController til at håndtagere redirect til error page når en exception bliver kastet.&#10;&#10;Har implamenteret en validationStrategy der burde kunne tage en hver datatype.">
+      <option name="closed" value="true" />
+      <created>1775815863264</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1775815863264</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added some default custom exceptions and validation stragies.">
+      <option name="closed" value="true" />
+      <created>1775815983766</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1775815983766</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added UserLoginException, removed ValidationExection and changed extendions in the other exception classes to RunTimeException.">
+      <option name="closed" value="true" />
+      <created>1775817585339</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1775817585339</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add Cat Exception and Auth Exception. Removed Boot Sec.">
+      <option name="closed" value="true" />
+      <created>1776156725748</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1776156725748</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add Cat Exception and Auth Exception. Removed Boot Sec.">
+      <option name="closed" value="true" />
+      <created>1776156758792</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1776156758792</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Merge">
+      <option name="closed" value="true" />
+      <created>1776166482677</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1776166482677</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Merge">
+      <option name="closed" value="true" />
+      <created>1776167939504</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1776167939504</updated>
+    </task>
+    <task id="LOCAL-00013" summary="IDK">
+      <option name="closed" value="true" />
+      <created>1776238356041</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1776238356041</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Delete virker : b">
+      <option name="closed" value="true" />
+      <created>1776288656862</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1776288656862</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added jdbc driver" />
+    <MESSAGE value="Filled in application.properties, Add CatReadController, added a function that goes through controller-service-interface-repository. Added a html index with a href to cat-list, add cat-list.html. Added a table with header and fields for cats." />
+    <MESSAGE value="Because I SAY SO" />
+    <MESSAGE value="Merge alle 4 branche sammen." />
+    <MESSAGE value="Changes by jonas" />
+    <MESSAGE value="Har Lavet en RestController til at håndtagere redirect til error page når en exception bliver kastet.&#10;&#10;Har implamenteret en validationStrategy der burde kunne tage en hver datatype." />
+    <MESSAGE value="Added some default custom exceptions and validation stragies." />
+    <MESSAGE value="Added UserLoginException, removed ValidationExection and changed extendions in the other exception classes to RunTimeException." />
+    <MESSAGE value="Add Cat Exception and Auth Exception. Removed Boot Sec." />
+    <MESSAGE value="Merge" />
+    <MESSAGE value="IDK" />
+    <MESSAGE value="Delete virker : b" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete virker : b" />
+  </component>
+</project>

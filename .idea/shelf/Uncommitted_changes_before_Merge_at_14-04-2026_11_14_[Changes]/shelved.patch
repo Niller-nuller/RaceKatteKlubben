@@ -1,0 +1,297 @@
+Index: src/main/java/org/example/racekatteklubben/use_case/CatService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.use_case;\r\n\r\nimport org.example.racekatteklubben.entity.Cat;\r\nimport org.example.racekatteklubben.entity.interfaces.ICatRepository;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport java.time.LocalDate;\r\nimport java.time.temporal.ChronoUnit;\r\nimport java.util.List;\r\n\r\n@Service\r\npublic class CatService {\r\n\r\n    private final ICatRepository catRepository;\r\n\r\n    @Autowired\r\n    public CatService(ICatRepository catRepository) {\r\n\r\n        this.catRepository = catRepository;\r\n    }\r\n\r\n\r\n    public List<Cat> handleGetFullListOfCats(String criteria){\r\n        return catRepository.requestFullFilteredCatList(criteria);\r\n    }\r\n\r\n    public void createCat(Cat cat, long ownerId) {\r\n        cat.setOwnerId(ownerId);\r\n\r\n\r\n        if (cat.getDateOfBirth() != null) {\r\n            cat.setAge((int) ChronoUnit.YEARS.between(\r\n                    cat.getDateOfBirth(), LocalDate.now()));\r\n        }\r\n\r\n\r\n        if (!cat.isDead()) {\r\n            cat.setDateOfDeath(null);\r\n        }\r\n\r\n        cat.setFullCode(buildFullCode(cat));\r\n\r\n        catRepository.createCat(cat);\r\n    }\r\n\r\n    private String buildFullCode(Cat cat) {\r\n        return String.join(\"-\",\r\n                safe(cat.getFurColorCode()),\r\n                safe(cat.getPatternCode()),\r\n                safe(cat.getBreedCode()),\r\n                safe(cat.getEyeCode()));\r\n    }\r\n\r\n    private String safe(String s) {\r\n        return s == null ? \"\" : s;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/use_case/CatService.java b/src/main/java/org/example/racekatteklubben/use_case/CatService.java
+--- a/src/main/java/org/example/racekatteklubben/use_case/CatService.java	(revision a81148692796ca4d167fc509f8a4db80c31845f6)
++++ b/src/main/java/org/example/racekatteklubben/use_case/CatService.java	(date 1776158068738)
+@@ -1,10 +1,10 @@
+ package org.example.racekatteklubben.use_case;
+ 
++import org.example.racekatteklubben.Validation.ValidationType;
+ import org.example.racekatteklubben.entity.Cat;
+ import org.example.racekatteklubben.entity.interfaces.ICatRepository;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Service;
+-
+ import java.time.LocalDate;
+ import java.time.temporal.ChronoUnit;
+ import java.util.List;
+@@ -13,11 +13,12 @@
+ public class CatService {
+ 
+     private final ICatRepository catRepository;
+-
++    private final ValidationService validationService;
+     @Autowired
+-    public CatService(ICatRepository catRepository) {
++    public CatService(ICatRepository catRepository, ValidationService validationService) {
+ 
+         this.catRepository = catRepository;
++        this.validationService = validationService;
+     }
+ 
+ 
+@@ -51,6 +52,9 @@
+                 safe(cat.getBreedCode()),
+                 safe(cat.getEyeCode()));
+     }
++    private void validateCat(Cat cat) {
++        validationService.validate(ValidationType.CAT, cat);
++    }
+ 
+     private String safe(String s) {
+         return s == null ? "" : s;
+Index: src/main/java/org/example/racekatteklubben/entity/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.entity;\r\n\r\npublic class User {\r\n    private long id;\r\n    private String name;\r\n    private String lastName;\r\n    private Gender gender;\r\n    private UserLogin usersLogin;\r\n\r\n    public User(){}\r\n    public User(String name,String lastName, Gender gender, UserLogin usersLogin) {\r\n        this.name = name;\r\n        this.lastName = lastName;\r\n        this.gender = gender;\r\n        this.usersLogin = usersLogin;\r\n    }\r\n    public User(long id, String name,String lastName, Gender gender, UserLogin usersLogin) {\r\n        this.id = id;\r\n        this.name = name;\r\n        this.lastName = lastName;\r\n        this.gender = gender;\r\n        this.usersLogin = usersLogin;\r\n    }\r\n\r\n    public long getId() {\r\n        return id;\r\n    }\r\n    public void setId(long id) {\r\n    }\r\n    public String getName() {\r\n        return name;\r\n    }\r\n    public  void setName(String name) {\r\n        this.name = name;\r\n    }\r\n    public String getLastName() {\r\n        return lastName;\r\n    }\r\n    public void setLastName(String lastName) {\r\n        this.lastName = lastName;\r\n    }\r\n    public Gender getGender() {\r\n        return gender;\r\n    }\r\n    public void setGender(Gender gender) {\r\n        this.gender = gender;\r\n    }\r\n    public UserLogin getUsersLogin() {\r\n        return usersLogin;\r\n    }\r\n    public void setUsersLogin(UserLogin usersLogin) {\r\n        this.usersLogin = usersLogin;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/entity/User.java b/src/main/java/org/example/racekatteklubben/entity/User.java
+--- a/src/main/java/org/example/racekatteklubben/entity/User.java	(revision a81148692796ca4d167fc509f8a4db80c31845f6)
++++ b/src/main/java/org/example/racekatteklubben/entity/User.java	(date 1776158068736)
+@@ -5,21 +5,21 @@
+     private String name;
+     private String lastName;
+     private Gender gender;
+-    private UserLogin usersLogin;
++    private Auth authLogin;
+ 
+     public User(){}
+-    public User(String name,String lastName, Gender gender, UserLogin usersLogin) {
++    public User(String name,String lastName, Gender gender, Auth authLogin) {
+         this.name = name;
+         this.lastName = lastName;
+         this.gender = gender;
+-        this.usersLogin = usersLogin;
++        this.authLogin = authLogin;
+     }
+-    public User(long id, String name,String lastName, Gender gender, UserLogin usersLogin) {
++    public User(long id, String name,String lastName, Gender gender, Auth authLogin) {
+         this.id = id;
+         this.name = name;
+         this.lastName = lastName;
+         this.gender = gender;
+-        this.usersLogin = usersLogin;
++        this.authLogin = authLogin;
+     }
+ 
+     public long getId() {
+@@ -45,10 +45,10 @@
+     public void setGender(Gender gender) {
+         this.gender = gender;
+     }
+-    public UserLogin getUsersLogin() {
+-        return usersLogin;
++    public Auth getAutLogin() {
++        return authLogin;
+     }
+-    public void setUsersLogin(UserLogin usersLogin) {
+-        this.usersLogin = usersLogin;
++    public void setAutLogin(Auth authLogin) {
++        this.authLogin = authLogin;
+     }
+ }
+Index: src/main/java/org/example/racekatteklubben/entity/interfaces/IUserRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.entity.interfaces;\r\n\r\nimport org.example.racekatteklubben.entity.User;\r\nimport org.example.racekatteklubben.entity.UserLogin;\r\nimport org.springframework.stereotype.Repository;\r\nimport java.util.List;\r\n\r\n\r\n@Repository\r\npublic interface IUserRepository {\r\n    String getEmail(UserLogin userLogin);\r\n    void createUserCredentials(UserLogin userLogin);\r\n    UserLogin logUserIn(UserLogin userLogin);\r\n    void createUser(User user, UserLogin userLogin);\r\n    UserLogin getUserLoginId(UserLogin userLogin);\r\n    List<User> requestFullUserList();\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/entity/interfaces/IUserRepository.java b/src/main/java/org/example/racekatteklubben/entity/interfaces/IUserRepository.java
+--- a/src/main/java/org/example/racekatteklubben/entity/interfaces/IUserRepository.java	(revision a81148692796ca4d167fc509f8a4db80c31845f6)
++++ b/src/main/java/org/example/racekatteklubben/entity/interfaces/IUserRepository.java	(date 1776158068737)
+@@ -1,5 +1,6 @@
+ package org.example.racekatteklubben.entity.interfaces;
+ 
++import org.example.racekatteklubben.entity.Auth;
+ import org.example.racekatteklubben.entity.User;
+ import org.example.racekatteklubben.entity.UserLogin;
+ import org.springframework.stereotype.Repository;
+@@ -8,10 +9,10 @@
+ 
+ @Repository
+ public interface IUserRepository {
+-    String getEmail(UserLogin userLogin);
+-    void createUserCredentials(UserLogin userLogin);
+-    UserLogin logUserIn(UserLogin userLogin);
+-    void createUser(User user, UserLogin userLogin);
+-    UserLogin getUserLoginId(UserLogin userLogin);
++    String getEmail(Auth authLogin);
++    void createUserCredentials(Auth authLogin);
++    Auth logUserIn(Auth authLogin);
++    void createUser(User user, Auth authLogin);
++    Auth getUserLoginId(Auth authLogin);
+     List<User> requestFullUserList();
+ }
+Index: src/main/java/org/example/racekatteklubben/entity/Auth.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.entity;\r\n\r\npublic class Auth {\r\n    private long id;\r\n    private String email;\r\n    private String password;\r\n\r\n    public Auth(){}\r\n\r\n    public Auth(String email, String password) {\r\n        this.email = email;\r\n        this.password = password;\r\n    }\r\n    public UserLogin(long id, String enail, String password){\r\n        this.id = id;\r\n        this.email = enail;\r\n        this.password = password;\r\n    }\r\n    public Long getId() {\r\n        return id;\r\n    }\r\n    public void setId(Long id) {\r\n        this.id = id;\r\n    }\r\n    public String getEmail() {\r\n        return email;\r\n    }\r\n    public void setEmail(String email) {\r\n        this.email = email;\r\n    }\r\n    public String getPassword() {\r\n        return password;\r\n    }\r\n    public void setPassword(String password) {\r\n        this.password = password;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/entity/Auth.java b/src/main/java/org/example/racekatteklubben/entity/Auth.java
+--- a/src/main/java/org/example/racekatteklubben/entity/Auth.java	(revision a81148692796ca4d167fc509f8a4db80c31845f6)
++++ b/src/main/java/org/example/racekatteklubben/entity/Auth.java	(date 1776158068735)
+@@ -11,9 +11,9 @@
+         this.email = email;
+         this.password = password;
+     }
+-    public UserLogin(long id, String enail, String password){
++    public Auth(long id, String email, String password){
+         this.id = id;
+-        this.email = enail;
++        this.email = email;
+         this.password = password;
+     }
+     public Long getId() {
+Index: src/main/java/org/example/racekatteklubben/infrastrcture/UserRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.infrastrcture;\r\n\r\n\r\nimport org.example.racekatteklubben.entity.Gender;\r\nimport org.example.racekatteklubben.entity.User;\r\nimport org.example.racekatteklubben.entity.UserLogin;\r\nimport org.example.racekatteklubben.entity.interfaces.IUserRepository;\r\nimport org.springframework.dao.EmptyResultDataAccessException;\r\nimport org.springframework.jdbc.core.JdbcTemplate;\r\n\r\nimport org.springframework.stereotype.Repository;\r\n\r\nimport java.util.List;\r\n\r\n@Repository\r\npublic class UserRepository implements IUserRepository {\r\n\r\n    private final JdbcTemplate jdbcTemplate;\r\n\r\n\r\n    public UserRepository(JdbcTemplate jdbcTemplate) {\r\n        this.jdbcTemplate = jdbcTemplate;\r\n    }\r\n\r\n    @Override\r\n    public UserLogin logUserIn(UserLogin userLogin) {\r\n        String sql = \"SELECT * FROM Credentials WHERE email = ?\";\r\n\r\n        return jdbcTemplate.queryForObject(sql,\r\n                (rs, rowNum) -> new UserLogin(\r\n                        rs.getString(\"email\"),\r\n                        rs.getString(\"password\")\r\n                ),\r\n                userLogin.getEmail()\r\n        );\r\n    }\r\n    @Override\r\n    public String getEmail(UserLogin userLogin){\r\n        String sql = \"SELECT * FROM Credentials WHERE email = ?\";\r\n        // try er kun til hvis databasen er tom\r\n        try {\r\n            return jdbcTemplate.queryForObject(sql,\r\n                    (rs, rowNum) -> rs.getString(\"email\"),\r\n                    userLogin.getEmail());\r\n        } catch (EmptyResultDataAccessException e) {\r\n            return null;\r\n        }\r\n    }\r\n    @Override\r\n    public void createUserCredentials(UserLogin userLogin) {\r\n        String sql = \"INSERT INTO Credentials (email, password) VALUES (?, ?)\";\r\n        jdbcTemplate.update(sql, userLogin.getEmail(), userLogin.getPassword());\r\n    }\r\n\r\n    @Override\r\n    public void createUser(User user, UserLogin userLogin) {\r\n        String sql = \"INSERT INTO Users (Name, LastName, Gender, CredentialsID) VALUES (?, ?, ?, ?)\";\r\n\r\n        userLogin.setId(getUserLoginId(userLogin).getId());\r\n        jdbcTemplate.update(sql, user.getName(), user.getLastName(), user.getGender().toString(), userLogin.getId());\r\n    }\r\n\r\n    @Override\r\n    public UserLogin getUserLoginId(UserLogin userLogin){\r\n        String sql = \"SELECT * FROM Credentials WHERE email = ?\";\r\n        return jdbcTemplate.queryForObject(sql,\r\n                (rs, rowNum) -> new UserLogin(rs.getLong(\"CredentialsId\"), rs.getString(\"Email\"), rs.getString(\"Password\")), userLogin.getEmail()\r\n        );\r\n    }\r\n    @Override\r\n    public List<User> requestFullUserList(){\r\n        String sql = \"SELECT * FROM Users LEFT JOIN Credentials on Users.credentialsId = Credentials.CredentialsId\";\r\n        return jdbcTemplate.query(sql,(rs, rowNum) ->\r\n                new User(rs.getLong(\"UserId\"),\r\n                        rs.getString(\"Name\"),\r\n                        rs.getString(\"LastName\"),\r\n                        Gender.valueOf(rs.getString(\"Gender\")),\r\n                        new UserLogin(rs.getString(\"Email\"), rs.getString(\"Password\"))));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/infrastrcture/UserRepository.java b/src/main/java/org/example/racekatteklubben/infrastrcture/UserRepository.java
+--- a/src/main/java/org/example/racekatteklubben/infrastrcture/UserRepository.java	(revision a81148692796ca4d167fc509f8a4db80c31845f6)
++++ b/src/main/java/org/example/racekatteklubben/infrastrcture/UserRepository.java	(date 1776158068737)
+@@ -1,9 +1,9 @@
+ package org.example.racekatteklubben.infrastrcture;
+ 
+ 
++import org.example.racekatteklubben.entity.Auth;
+ import org.example.racekatteklubben.entity.Gender;
+ import org.example.racekatteklubben.entity.User;
+-import org.example.racekatteklubben.entity.UserLogin;
+ import org.example.racekatteklubben.entity.interfaces.IUserRepository;
+ import org.springframework.dao.EmptyResultDataAccessException;
+ import org.springframework.jdbc.core.JdbcTemplate;
+@@ -23,48 +23,48 @@
+     }
+ 
+     @Override
+-    public UserLogin logUserIn(UserLogin userLogin) {
++    public Auth logUserIn(Auth authLogin) {
+         String sql = "SELECT * FROM Credentials WHERE email = ?";
+ 
+         return jdbcTemplate.queryForObject(sql,
+-                (rs, rowNum) -> new UserLogin(
++                (rs, rowNum) -> new Auth(
+                         rs.getString("email"),
+                         rs.getString("password")
+                 ),
+-                userLogin.getEmail()
++                authLogin.getEmail()
+         );
+     }
+     @Override
+-    public String getEmail(UserLogin userLogin){
++    public String getEmail(Auth authLogin){
+         String sql = "SELECT * FROM Credentials WHERE email = ?";
+         // try er kun til hvis databasen er tom
+         try {
+             return jdbcTemplate.queryForObject(sql,
+                     (rs, rowNum) -> rs.getString("email"),
+-                    userLogin.getEmail());
++                    authLogin.getEmail());
+         } catch (EmptyResultDataAccessException e) {
+             return null;
+         }
+     }
+     @Override
+-    public void createUserCredentials(UserLogin userLogin) {
++    public void createUserCredentials(Auth authLogin) {
+         String sql = "INSERT INTO Credentials (email, password) VALUES (?, ?)";
+-        jdbcTemplate.update(sql, userLogin.getEmail(), userLogin.getPassword());
++        jdbcTemplate.update(sql, authLogin.getEmail(), authLogin.getPassword());
+     }
+ 
+     @Override
+-    public void createUser(User user, UserLogin userLogin) {
++    public void createUser(User user, Auth authLogin) {
+         String sql = "INSERT INTO Users (Name, LastName, Gender, CredentialsID) VALUES (?, ?, ?, ?)";
+ 
+-        userLogin.setId(getUserLoginId(userLogin).getId());
+-        jdbcTemplate.update(sql, user.getName(), user.getLastName(), user.getGender().toString(), userLogin.getId());
++        authLogin.setId(getUserLoginId(authLogin).getId());
++        jdbcTemplate.update(sql, user.getName(), user.getLastName(), user.getGender().toString(), authLogin.getId());
+     }
+ 
+     @Override
+-    public UserLogin getUserLoginId(UserLogin userLogin){
++    public Auth getUserLoginId(Auth authLogin){
+         String sql = "SELECT * FROM Credentials WHERE email = ?";
+         return jdbcTemplate.queryForObject(sql,
+-                (rs, rowNum) -> new UserLogin(rs.getLong("CredentialsId"), rs.getString("Email"), rs.getString("Password")), userLogin.getEmail()
++                (rs, rowNum) -> new Auth(rs.getLong("CredentialsId"), rs.getString("Email"), rs.getString("Password")), authLogin.getEmail()
+         );
+     }
+     @Override
+@@ -75,6 +75,6 @@
+                         rs.getString("Name"),
+                         rs.getString("LastName"),
+                         Gender.valueOf(rs.getString("Gender")),
+-                        new UserLogin(rs.getString("Email"), rs.getString("Password"))));
++                        new Auth(rs.getString("Email"), rs.getString("Password"))));
+     }
+ }
+Index: src/main/java/org/example/racekatteklubben/entity/RegisterWrapper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.racekatteklubben.entity;\r\n\r\npublic class RegisterWrapper {\r\n    private User user;\r\n    private UserLogin userLogin;\r\n\r\n    public RegisterWrapper(){}\r\n    public RegisterWrapper(User user, UserLogin userLogin) {\r\n        this.user = user;\r\n        this.userLogin = userLogin;\r\n    }\r\n    public User getUser() {\r\n        return user;\r\n    }\r\n    public void setUser(User user) {\r\n        this.user = user;\r\n    }\r\n    public UserLogin getUserLogin() {\r\n        return userLogin;\r\n    }\r\n    public void setUserLogin(UserLogin userLogin) {\r\n        this.userLogin = userLogin;\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/entity/RegisterWrapper.java b/src/main/java/org/example/racekatteklubben/entity/RegisterWrapper.java
+--- a/src/main/java/org/example/racekatteklubben/entity/RegisterWrapper.java	(revision a81148692796ca4d167fc509f8a4db80c31845f6)
++++ b/src/main/java/org/example/racekatteklubben/entity/RegisterWrapper.java	(date 1776158068736)
+@@ -2,12 +2,12 @@
+ 
+ public class RegisterWrapper {
+     private User user;
+-    private UserLogin userLogin;
++    private Auth authLogin;
+ 
+     public RegisterWrapper(){}
+-    public RegisterWrapper(User user, UserLogin userLogin) {
++    public RegisterWrapper(User user, Auth authLogin) {
+         this.user = user;
+-        this.userLogin = userLogin;
++        this.authLogin = authLogin;
+     }
+     public User getUser() {
+         return user;
+@@ -15,11 +15,11 @@
+     public void setUser(User user) {
+         this.user = user;
+     }
+-    public UserLogin getUserLogin() {
+-        return userLogin;
++    public Auth getUserLogin() {
++        return authLogin;
+     }
+-    public void setUserLogin(UserLogin userLogin) {
+-        this.userLogin = userLogin;
++    public void setUserLogin(Auth userLogin) {
++        this.authLogin = userLogin;
+     }
+ }
+ 
+Index: src/main/java/org/example/racekatteklubben/entity/GlobalExceptionHandler.java
+===================================================================
+diff --git a/src/main/java/org/example/racekatteklubben/entity/GlobalExceptionHandler.java b/src/main/java/org/example/racekatteklubben/entity/GlobalExceptionHandler.java
+deleted file mode 100644
+--- a/src/main/java/org/example/racekatteklubben/entity/GlobalExceptionHandler.java	(revision a81148692796ca4d167fc509f8a4db80c31845f6)
++++ /dev/null	(revision a81148692796ca4d167fc509f8a4db80c31845f6)
+@@ -1,4 +0,0 @@
+-package org.example.racekatteklubben.entity;
+-
+-public class GlobalExceptionHandler {
+-}
