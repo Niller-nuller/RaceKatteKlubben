@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface IUserRepository {
-    String getEmail(Auth userAuth);
     void createUserCredentials(Auth userAuth);
     Auth logUserIn(Auth userAuth);
     void createUser(User user, Auth userAuth);

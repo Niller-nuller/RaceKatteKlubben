@@ -1,34 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>user List</title>
+    <title>Medlemsliste</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1>user List</h1>
-<form th:action="@{user-list}" method="get">
-    <input type="text" name="criteria" th:value="${searchCriteria}" placeholder="search by name...">
-    <button type="submit">Search</button>
-</form>
-<table>
-    <tr>
-        <th>Navn</th>
-        <th>Efternavn</th>
-        <th>Køn</th>
-        <th>Email</th>
-    </tr>
-    <tr th:each="user : ${userList}">
-        <td th:text="${user.name}">
-        <td th:text="${user.lastName}">
-        <td th:text="${user.getGender()}">
-        <td th:text="${user.getUsersLogin().email}">
-        </td>
-</table>
-<h3><a th:href="@{/}">Tilbage til home</a></h3>
+
+<div class="page-content">
+    <div class="card card--wide">
+
+        <div class="list-header">
+            <h1>Medlemsliste</h1>
+            <form class="search-bar" th:action="@{/user/user-list}" method="get">
+                <input type="text" name="criteria" th:value="${searchCriteria}" placeholder="Søg efter navn...">
+                <button type="submit">Søg</button>
+            </form>
+        </div>
+
+        <p class="result-count" th:if="${userList != null}"
+           th:text="${#lists.size(userList)} + ' medlemmer fundet'"></p>
+
+        <!-- Tabel med resultater -->
+        <table class="data-table" th:if="${userList != null and !#lists.isEmpty(userList)}">
+            <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Efternavn</th>
+                <th>Køn</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td>
+                        <span class="cat-badge"
+                              th:classappend="${user.getGender().name() == 'MALE'} ? 'cat-badge--male' : 'cat-badge--female'"
+                              th:text="${user.getGender()}"></span>
+                </td>
+                <td th:text="${user.getUsersLogin().email}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Tom tilstand -->
+        <div class="empty-state" th:if="${userList == null or #lists.isEmpty(userList)}">
+            <span class="empty-icon">🔍</span>
+            <p>Ingen medlemmer fundet</p>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>

@@ -84,4 +84,8 @@ public class CatService {
         catRepository.annihilateCat(id, ownerId);
 
     }
+
+    public void validateHaritage(long dadId, long momId){
+        
+    }
 }

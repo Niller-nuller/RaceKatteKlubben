@@ -56,18 +56,6 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public String getEmail(Auth userAuth){
-        String sql = "SELECT * FROM Credentials WHERE email = ?";
-        // try er kun til hvis databasen er tom
-        try {
-            return jdbcTemplate.queryForObject(sql,
-                    (rs, rowNum) -> rs.getString("email"),
-                    userAuth.getEmail());
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-    @Override
     public void createUserCredentials(Auth userAuth) {
         String sql = "INSERT INTO Credentials (email, password) VALUES (?, ?)";
         jdbcTemplate.update(sql, userAuth.getEmail(), userAuth.getPassword());
