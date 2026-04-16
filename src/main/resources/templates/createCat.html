@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opret kat — Racekatteklubben</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="card card--wide">
+    <div class="logo-area">
+        <span class="paw-icon">🐾</span>
+        <h1>Opret kat</h1>
+        <p>Tilføj en ny kat til Racekatteklubben</p>
+    </div>
+
+    <div th:if="${param.success}" class="success-msg">
+        Katten er blevet oprettet!
+    </div>
+
+    <div th:if="${error}" class="error-msg" th:text="${error}"></div>
+
+    <form th:action="@{/cats/create}" th:object="${cat}" method="post">
+
+        <h2 class="section-title">Basisoplysninger</h2>
+
+        <div class="field">
+            <label for="name">Navn</label>
+            <input type="text" id="name" th:field="*{name}" placeholder="F.eks. Whiskers" required>
+        </div>
+
+        <div class="field-row">
+            <div class="field">
+                <label for="gender">Køn</label>
+                <select id="gender" th:field="*{gender}" required>
+                    <option value="">-- vælg --</option>
+                    <option th:each="g : ${genders}"
+                            th:value="${g}"
+                            th:text="${g}"></option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="dateOfBirth">Fødselsdato</label>
+                <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}" required>
+            </div>
+        </div>
+
+        <h2 class="section-title">Udseende</h2>
+
+        <div class="field-row">
+            <div class="field">
+                <label for="furColorCode">Pelsfarve-kode</label>
+                <input type="text" id="furColorCode" th:field="*{furColorCode}" placeholder="F.eks. a">
+            </div>
+
+            <div class="field">
+                <label for="patternCode">Mønster-kode</label>
+                <input type="text" id="patternCode" th:field="*{patternCode}" placeholder="F.eks. 21">
+            </div>
+        </div>
+
+        <div class="field-row">
+            <div class="field">
+                <label for="breedCode">Race-kode</label>
+                <input type="text" id="breedCode" th:field="*{breedCode}" placeholder="F.eks. MCO">
+            </div>
+
+            <div class="field">
+                <label for="eyeCode">Øjenfarve-kode</label>
+                <input type="text" id="eyeCode" th:field="*{eyeCode}" placeholder="F.eks. 62">
+            </div>
+        </div>
+
+        <h2 class="section-title">Stamtavle</h2>
+
+        <div class="field">
+            <label for="breedId">Race ID</label>
+            <input type="number" id="breedId" th:field="*{breedId}" placeholder="0">
+        </div>
+
+        <div class="field-row">
+            <div class="field">
+                <label for="fatherId">Far ID</label>
+                <input type="number" id="fatherId" th:field="*{fatherId}" placeholder="0">
+            </div>
+
+            <div class="field">
+                <label for="motherId">Mor ID</label>
+                <input type="number" id="motherId" th:field="*{motherId}" placeholder="0">
+            </div>
+        </div>
+
+        <h2 class="section-title">Status</h2>
+
+        <div class="checkbox-field">
+            <input type="checkbox" id="dead" th:field="*{dead}">
+            <label for="dead">Katten er død</label>
+        </div>
+
+        <div class="field">
+            <label for="dateOfDeath">Dødsdato (hvis relevant)</label>
+            <input type="date" id="dateOfDeath" th:field="*{dateOfDeath}">
+        </div>
+
+        <button class="btn-primary" type="submit">Gem kat</button>
+    </form>
+</div>
+
+</body>
+</html>

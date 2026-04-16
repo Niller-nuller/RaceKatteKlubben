@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Katte-liste</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="page-content">
+    <div class="card card--wide">
+
+        <div class="list-header">
+            <h1>Katteliste</h1>
+            <form class="search-bar" th:action="@{/cat/cat-list}" method="get">
+                <input type="text" name="criteria" th:value="${searchCriteria}" placeholder="Søg efter kat...">
+                <button type="submit">Søg</button>
+            </form>
+        </div>
+
+        <p class="result-count" th:if="${catList != null}"
+           th:text="${#lists.size(catList)} + ' katte fundet'"></p>
+
+
+        <table class="data-table" th:if="${catList != null and !#lists.isEmpty(catList)}">
+            <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Alder</th>
+                <th>Kode</th>
+                <th>Køn</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cat : ${catList}">
+                <td th:text="${cat.name}"></td>
+                <td th:text="${cat.getAge()}"></td>
+                <td th:text="${cat.getFullCode()}"></td>
+                <td>
+                        <span class="cat-badge"
+                              th:classappend="${cat.getGender().name() == 'MALE'} ? 'cat-badge--male' : 'cat-badge--female'"
+                              th:text="${cat.getGender()}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="empty-state" th:if="${catList == null or #lists.isEmpty(catList)}">
+            <span class="empty-icon">🔍</span>
+            <p>Ingen katte fundet</p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
