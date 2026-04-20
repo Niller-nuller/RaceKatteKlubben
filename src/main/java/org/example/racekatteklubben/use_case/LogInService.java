@@ -2,7 +2,7 @@ package org.example.racekatteklubben.use_case;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.racekatteklubben.Validation.ValidationType;
-import org.example.racekatteklubben.entity.Auth;
+import org.example.racekatteklubben.entity.AuthObject;
 import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
 import org.example.racekatteklubben.exception.LoginValidationException;
@@ -15,26 +15,24 @@ public class LogInService {
     private final IUserRepository userRepository;
     private final ValidationService validationService;
     @Autowired
-    public LogInService(IUserRepository userRepository,ValidationService validationService, HttpSession session) {
+    public LogInService(IUserRepository userRepository,ValidationService validationService) {
         this.userRepository = userRepository;
         this.validationService = validationService;
     }
 
-    public User login(Auth loginRequest) {
-        validateLoginRequest(loginRequest);
-        Auth authLogin = userRepository.logUserIn(loginRequest);
+    public User login(String email, String password) {
+        AuthObject loginRequest = returnLoginObject(email,password);
+        AuthObject authLogin = userRepository.logUserIn(loginRequest);
         if (isValidCredentials(loginRequest,authLogin)) {
-            return userRepository.getUserFromAuth(authLogin);
+            return userRepository.getUserFromAuthObject(authLogin);
         }
         throw new LoginValidationException("Invalid Credentials");
     }
+    private AuthObject returnLoginObject(String email, String password) {
+        return new AuthObject(email, password);
 
-    private void validateLoginRequest(Auth loginRequest) {
-        validationService.validate(ValidationType.EMAIL, loginRequest);
-        validationService.validate(ValidationType.PASSWORD, loginRequest);
     }
-
-    private boolean isValidCredentials(Auth loginRequest, Auth authLogin) {
+    private boolean isValidCredentials(AuthObject loginRequest, AuthObject authLogin) {
         return authLogin != null && BCrypt.checkpw(loginRequest.getPassword(), authLogin.getPassword());
     }
 }

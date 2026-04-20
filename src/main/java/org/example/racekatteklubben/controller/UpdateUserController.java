@@ -1,7 +1,7 @@
 package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.racekatteklubben.entity.Auth;
+import org.example.racekatteklubben.entity.AuthObject;
 import org.example.racekatteklubben.entity.Gender;
 import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.use_case.UserService;
@@ -26,7 +26,7 @@ public class UpdateUserController {
 
     @GetMapping("/edit")
     public String showEditForm(HttpSession session, Model model) {
-        Auth authUser = (Auth) session.getAttribute("AuthUser");
+        AuthObject authUser = (AuthObject) session.getAttribute("AuthUser");
         if (authUser == null) {
             return "redirect:/login";
         }
@@ -39,7 +39,7 @@ public class UpdateUserController {
 
     @PostMapping("/edit")
     public String updateUser(@ModelAttribute("editUser") User editUser, HttpSession session, Model model) {
-        Auth authUser = (Auth) session.getAttribute("AuthUser");
+        AuthObject authUser = (AuthObject) session.getAttribute("AuthUser");
         if (authUser == null) {
             return "redirect:/login";
         }

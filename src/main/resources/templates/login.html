@@ -12,17 +12,17 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <div>
     <h1>Vær sød at logge ind</h1>
-    <form th:action="@{/login}" th:object="${Auth}" method="post">
+    <form th:action="@{/login}" method="post">
         <label for="email">Email:</label><br>
-        <input type="text" id="email" th:field="*{email}" required><br><br>
+        <input type="text" id="email" name="email" required><br><br>
 
         <label for="password">Password:</label><br>
-        <input type="password" id="password" th:field="*{password}" required><br><br>
+        <input type="password" id="password" name="password" required><br><br>
 
+        <div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div><br>
         <button type="submit">Log ind</button>
         <a href="/register"><button type="button">Register</button></a>
     </form>
-
 </div>
 </body>
 </html>

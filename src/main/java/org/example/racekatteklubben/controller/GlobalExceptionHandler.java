@@ -1,4 +1,5 @@
 package org.example.racekatteklubben.controller;
+import org.example.racekatteklubben.exception.EmailValidationException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

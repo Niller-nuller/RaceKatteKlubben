@@ -10,28 +10,28 @@
 <h1>Create Account</h1>
 
 
-<form th:action="@{/register}" th:object="${registerWrapper}" method="post">
+<form th:action="@{/register}" method="post">
 
     <div class="field">
     <label for="email">Email:</label><br>
-    <input type="text" id="email" th:field="*{authLogin.email}" required><br><br>
+    <input type="text" id="email" name="email" required><br><br>
     </div>
     <div class="field">
     <label for="password">Password:</label><br>
-    <input type="password" id="password" th:field="*{authLogin.password}" required><br><br>
+    <input type="password" id="password" name="password" required><br><br>
     </div>
     <div class="field">
         <label for="name">navn:</label><br>
-        <input type="text" id="name" th:field="*{user.name}" required><br><br>
+        <input type="text" id="name" name="name" required><br><br>
     </div>
     <div class="field">
         <label for="lastname">efternavn:</label><br>
-        <input type="text" id="lastname" th:field="*{user.lastName}" required><br><br>
+        <input type="text" id="lastname" name="lastname" required><br><br>
     </div>
     <div class ="field-row">
         <div class="field">
             <label for="gender">Køn</label>
-            <select id="gender" th:field="*{user.gender}" required>
+            <select id="gender" name="gender" required>
                 <option value="">-- vælg --</option>
                 <option th:each="g : ${genders}"
                         th:value="${g}"

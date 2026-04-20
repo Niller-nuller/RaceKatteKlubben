@@ -1,6 +1,6 @@
 package org.example.racekatteklubben.use_case;
 
-import org.example.racekatteklubben.entity.Auth;
+import org.example.racekatteklubben.entity.AuthObject;
 import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +38,12 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public User getUserFromAuth(Auth auth) {
-        return userRepository.getUserFromAuth(auth);
+    public User getUserFromAuth(AuthObject auth) {
+        return userRepository.getUserFromAuthObject(auth);
     }
 
-    public void updateUser(User formUser, Auth auth) {
-        User existingUser = userRepository.getUserFromAuth(auth);
+    public void updateUser(User formUser, AuthObject auth) {
+        User existingUser = userRepository.getUserFromAuthObject(auth);
         User updatedUser = new User(
                 existingUser.getId(),
                 formUser.getName(),

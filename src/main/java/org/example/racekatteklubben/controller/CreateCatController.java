@@ -1,7 +1,6 @@
 package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.entity.Cat;
 import org.example.racekatteklubben.entity.Gender;
 import org.example.racekatteklubben.entity.User;

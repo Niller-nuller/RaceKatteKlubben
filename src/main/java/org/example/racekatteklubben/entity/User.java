@@ -7,24 +7,24 @@ public class User {
     private String name;
     private String lastName;
     private Gender gender;
-    private Auth usersAuth;
+    private AuthObject usersAuth;
     private List<Cat> usersCats;
 
     public User(){}
-    public User(String name,String lastName, Gender gender, Auth usersAuth) {
+    public User(String name,String lastName, Gender gender, AuthObject usersAuth) {
         this.name = name;
         this.lastName = lastName;
         this.gender = gender;
         this.usersAuth = usersAuth;
     }
-    public User(long id, String name,String lastName, Gender gender, Auth usersAuth) {
+    public User(long id, String name,String lastName, Gender gender, AuthObject usersAuth) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.gender = gender;
         this.usersAuth = usersAuth;
     }
-    public User(long id, String name,String lastName, Gender gender, Auth usersAuth, List<Cat> usersCats) {
+    public User(long id, String name, String lastName, Gender gender, AuthObject usersAuth, List<Cat> usersCats) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -57,10 +57,10 @@ public class User {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-    public Auth getUsersLogin() {
+    public AuthObject getUsersLogin() {
         return usersAuth;
     }
-    public void setUsersLogin(Auth usersAuth) {
+    public void setUsersLogin(AuthObject usersAuth) {
         this.usersAuth = usersAuth;
     }
     public List<Cat> getUsersCats() {return usersCats;}

@@ -2,10 +2,10 @@ package org.example.racekatteklubben.entity;
 
 public class RegisterWrapper {
     private User user;
-    private Auth authLogin;
+    private AuthObject authLogin;
 
     public RegisterWrapper(){}
-    public RegisterWrapper(User user, Auth authLogin) {
+    public RegisterWrapper(User user, AuthObject authLogin) {
         this.user = user;
         this.authLogin = authLogin;
     }
@@ -15,10 +15,10 @@ public class RegisterWrapper {
     public void setUser(User user) {
         this.user = user;
     }
-    public Auth getAuthLogin() {
+    public AuthObject getAuthLogin() {
         return authLogin;
     }
-    public void setAuthLogin(Auth userAuth) {
+    public void setAuthLogin(AuthObject userAuth) {
         this.authLogin = userAuth;
     }
 }

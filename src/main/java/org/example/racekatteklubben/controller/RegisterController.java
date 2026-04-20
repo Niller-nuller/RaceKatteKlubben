@@ -22,7 +22,6 @@ public class RegisterController {
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("genders", Gender.values());
-        model.addAttribute("registerWrapper", new RegisterWrapper());
         return "register";
     }
 

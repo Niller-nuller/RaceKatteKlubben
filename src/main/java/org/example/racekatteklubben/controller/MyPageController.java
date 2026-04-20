@@ -1,7 +1,6 @@
 package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.use_case.CatService;
 import org.springframework.stereotype.Controller;

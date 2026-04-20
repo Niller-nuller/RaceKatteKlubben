@@ -1,7 +1,8 @@
 package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.racekatteklubben.entity.Auth;
+import org.example.racekatteklubben.exception.EmailValidationException;
+import org.example.racekatteklubben.exception.PasswordValidationException;
 import org.example.racekatteklubben.use_case.LogInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,16 +19,18 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("Auth", new Auth());
+    public String login() {
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute("Auth") Auth auth, HttpSession session) {
-
-        session.setAttribute("currentUser", logInService.login(auth));
-
+    public String login(@ModelAttribute("email") String email,@ModelAttribute("password") String password, HttpSession session,Model model) {
+        try {
+            session.setAttribute("currentUser", logInService.login(email, password));
+        }catch (EmailValidationException | PasswordValidationException ex){
+            model.addAttribute("errorMessage", ex.getMessage());
+            return "login";
+        }
         return "redirect:/";
     }
 }

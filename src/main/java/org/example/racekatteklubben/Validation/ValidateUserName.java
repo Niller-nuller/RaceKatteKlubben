@@ -1,6 +1,5 @@
 package org.example.racekatteklubben.Validation;
 
-import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.exception.UserValidationException;
 import org.springframework.stereotype.Component;
