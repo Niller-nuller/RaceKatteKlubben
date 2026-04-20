@@ -2,6 +2,7 @@ package org.example.racekatteklubben.use_case;
 
 import org.example.racekatteklubben.Validation.ValidationType;
 import org.example.racekatteklubben.entity.AuthObject;
+import org.example.racekatteklubben.entity.Gender;
 import org.example.racekatteklubben.entity.RegisterWrapper;
 import org.example.racekatteklubben.entity.User;
 
@@ -21,26 +22,15 @@ public class RegisterService {
         this.userRepository = userRepository;
         this.validationService = validationService;
     }
-    public User register(RegisterWrapper registerWrapper) {
-        AuthObject auth = registerWrapper.getAuthLogin();
-        User user = registerWrapper.getUser();
-        String hashed = BCrypt.hashpw(auth.getPassword(), BCrypt.gensalt());
-        auth.setPassword(hashed);
-        validateUser(user);
-        validateAuth(auth);
-        userRepository.createUserCredentials(auth);
-        userRepository.createUser(user,auth);
-        user = userRepository.getUserFromAuthObject(auth);
-        return user;
+    public User register(String email,String password,String name,String lastName,String gender) {
+        AuthObject auth = createAuthObject(email,password);
+        User user = createUser(name, lastName, gender, auth);
+        return userRepository.requestCreateUser(user);
     }
-
-    private void validateUser(User user) {
-        validationService.validate(ValidationType.USER_NAME, user);
-        validationService.validate(ValidationType.USER_GENDER, user);
+    private AuthObject createAuthObject(String email,String password) {
+        return new AuthObject(email, BCrypt.hashpw(password, BCrypt.gensalt()));
     }
-    private void validateAuth(AuthObject auth) {
-        validationService.validate(ValidationType.PASSWORD, auth);
-        validationService.validate(ValidationType.EMAIL, auth);
+    private User createUser(String name,String lastName,String gender,AuthObject usersAuth) {
+        return new User(name,lastName, Gender.valueOf(gender), usersAuth);
     }
-
 }

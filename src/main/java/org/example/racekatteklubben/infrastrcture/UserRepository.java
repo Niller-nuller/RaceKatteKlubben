@@ -77,6 +77,41 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public User requestCreateUser(User user){
+        String authSql = "INSERT INTO Credentials (Email, Password) VALUES (?, ?)";
+        String userSql = "INSERT INTO users (Name, LastName, Gender, CredentialsId) VALUES (?, ?, ?, (SELECT CredentialsId FROM credentials WHERE Email = ?))";
+        String userIdSql = """
+        SELECT users.UserId, users.Name, users.LastName, users.Gender,
+        credentials.CredentialsId, credentials.Email, credentials.Password
+        FROM users
+        JOIN credentials ON users.CredentialsId = credentials.CredentialsId
+        WHERE credentials.Email = ?
+        """;
+        createUserCredentialsSql(authSql,user);
+        createUserSQL(userSql,user);
+
+        return returnUserObjectForSession(userIdSql,user);
+    }
+    private void createUserCredentialsSql(String authSql, User user){
+        jdbcTemplate.update(authSql, user.getUsersAuthObject().getEmail(), user.getUsersAuthObject().getPassword());
+    }
+    private void createUserSQL(String userSql, User user){
+        jdbcTemplate.update(userSql, user.getName(), user.getLastName(), user.getGender().toString(),user.getUsersAuthObject().getEmail());
+    }
+    private User returnUserObjectForSession(String userIdSql,User user){
+        return jdbcTemplate.queryForObject(userIdSql, (rs, rowNum) ->
+                new User(
+                        rs.getLong("UserId"),
+                        rs.getString("Name"),
+                        rs.getString("LastName"),
+                        Gender.valueOf(rs.getString("Gender")),
+                        new AuthObject(rs.getLong("CredentialsId"),
+                                rs.getString("Email"),
+                                rs.getString("Password"))
+                ),user.getUsersAuthObject().getEmail());
+    }
+
+    @Override
     public List<User> requestUserListPopulate(){
         String sql = "SELECT * FROM users LEFT JOIN credentials on users.CredentialsId = credentials.CredentialsId ORDER BY users.Name ASC";
         return jdbcTemplate.query(sql,(rs, rowNum) ->

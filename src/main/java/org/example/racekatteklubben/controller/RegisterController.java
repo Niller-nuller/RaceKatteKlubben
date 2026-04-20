@@ -26,8 +26,12 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("registerWrapper") RegisterWrapper registerWrapper, HttpSession session) {
-        session.setAttribute("currentUser",registerService.register(registerWrapper));
+    public String register(@RequestParam String email,@RequestParam String password, @RequestParam String name, @RequestParam String lastname, @RequestParam String gender, HttpSession session,Model model) {
+        try {
+            session.setAttribute("currentUser", registerService.register(email,password,name,lastname,gender));
+        }catch (Exception ex){
+        return "register";
+        }
         return "redirect:/";
     }
 

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface IUserRepository {
+    User requestCreateUser(User user);
     void createUserCredentials(AuthObject userAuth);
     AuthObject logUserIn(AuthObject userAuth);
     void createUser(User user, AuthObject userAuth);

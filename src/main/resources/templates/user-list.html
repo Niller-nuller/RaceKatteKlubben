@@ -43,7 +43,7 @@
                               th:classappend="${user.getGender().name() == 'MALE'} ? 'cat-badge--male' : 'cat-badge--female'"
                               th:text="${user.getGender()}"></span>
                 </td>
-                <td th:text="${user.getUsersLogin().email}"></td>
+                <td th:text="${user.getUsersAuthObject().email}"></td>
             </tr>
             </tbody>
         </table>

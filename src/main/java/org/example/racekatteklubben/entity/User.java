@@ -57,7 +57,7 @@ public class User {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-    public AuthObject getUsersLogin() {
+    public AuthObject getUsersAuthObject() {
         return usersAuth;
     }
     public void setUsersLogin(AuthObject usersAuth) {

@@ -27,11 +27,11 @@ public class UserService {
         if(fullServerUserList.isEmpty()){
             fullServerUserList.addAll(userRepository.requestUserListPopulate());
         }
-        if(criteria.isEmpty()){
+        if(criteria.isBlank()){
             return fullServerUserList;
         }
         return fullServerUserList.stream()
-                .filter(cat -> cat.getName()
+                .filter(user -> user.getName()
                         .toLowerCase()
                         .contains(criteria.toLowerCase()))
                 .sorted(Comparator.comparing(User::getName))

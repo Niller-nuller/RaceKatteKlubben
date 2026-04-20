@@ -24,10 +24,10 @@ public class MyPageController {
         }
         long userId = user.getId();
         System.out.println(user.getId());
-        System.out.println(user.getUsersLogin().getEmail());
+        System.out.println(user.getUsersAuthObject().getEmail());
 
 
-        model.addAttribute("authUser", ((User) session.getAttribute("currentUser")).getUsersLogin());
+        model.addAttribute("authUser", ((User) session.getAttribute("currentUser")).getUsersAuthObject());
         model.addAttribute("user", user);
         model.addAttribute("cats", catService.listCatById(userId));
         return "/myprofile";
