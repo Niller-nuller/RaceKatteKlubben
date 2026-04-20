@@ -20,10 +20,10 @@ public class ReadUserController {
        this.userService = userService;
    }
 
-   @GetMapping("/user-list")
+   @GetMapping("/userList")
     public String handleGetAllUsers(Model model,@RequestParam(value = "criteria", required = false, defaultValue = "") String criteria){
        model.addAttribute("searchCriteria", criteria);
-       model.addAttribute("userList", userService.handleGetAllUsers(criteria));
+       model.addAttribute("userList", userService.handleReturnFullUserList(criteria));
        return "user-list";
    }
 }

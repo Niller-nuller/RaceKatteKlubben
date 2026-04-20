@@ -15,7 +15,7 @@
 
         <div class="list-header">
             <h1>Katteliste</h1>
-            <form class="search-bar" th:action="@{/cat/cat-list}" method="get">
+            <form class="search-bar" th:action="@{/cat/catList}" method="get">
                 <input type="text" name="criteria" th:value="${searchCriteria}" placeholder="Søg efter kat...">
                 <button type="submit">Søg</button>
             </form>

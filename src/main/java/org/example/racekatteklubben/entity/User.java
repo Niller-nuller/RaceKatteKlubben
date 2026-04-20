@@ -1,11 +1,14 @@
 package org.example.racekatteklubben.entity;
 
+import java.util.List;
+
 public class User {
     private long id;
     private String name;
     private String lastName;
     private Gender gender;
     private Auth usersAuth;
+    private List<Cat> usersCats;
 
     public User(){}
     public User(String name,String lastName, Gender gender, Auth usersAuth) {
@@ -20,6 +23,14 @@ public class User {
         this.lastName = lastName;
         this.gender = gender;
         this.usersAuth = usersAuth;
+    }
+    public User(long id, String name,String lastName, Gender gender, Auth usersAuth, List<Cat> usersCats) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.usersAuth = usersAuth;
+        this.usersCats = usersCats;
     }
 
     public long getId() {
@@ -52,4 +63,6 @@ public class User {
     public void setUsersLogin(Auth usersAuth) {
         this.usersAuth = usersAuth;
     }
+    public List<Cat> getUsersCats() {return usersCats;}
+    public void setUsersCats(List<Cat> usersCats) {this.usersCats = usersCats;}
 }

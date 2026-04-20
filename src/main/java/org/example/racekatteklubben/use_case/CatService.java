@@ -8,25 +8,36 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CatService {
-
     private final ICatRepository catRepository;
     private final ValidationService validationService;
+    private final List<Cat> fullServerCatList;
     @Autowired
-    public CatService(ICatRepository catRepository, ValidationService validationService) {
+    public CatService(ICatRepository catRepository, ValidationService validationService,List<Cat> fullServerCatList) {
         this.catRepository = catRepository;
         this.validationService = validationService;
+        this.fullServerCatList = fullServerCatList;
     }
 
-
-    public List<Cat> handleGetFullListOfCats(String criteria){
-        validationService.validate(ValidationType.CRITERIA, criteria);
-        return catRepository.requestFullFilteredCatList(criteria);
+    public List<Cat> handleReturnCatList(String criteria){
+        if(fullServerCatList.isEmpty()){
+            fullServerCatList.addAll(catRepository.requestCatListPopulate());
+        }
+        if(criteria.isEmpty()){
+            return fullServerCatList;
+        }
+        return fullServerCatList.stream()
+                .filter(cat -> cat.getName()
+                        .toLowerCase()
+                        .contains(criteria.toLowerCase()))
+                .sorted(Comparator.comparing(Cat::getName))
+                .collect(Collectors.toList());
     }
-
     public void createCat(Cat cat, long ownerId) {
         cat.setOwnerId(ownerId);
 

@@ -8,8 +8,8 @@
     </a>
     <div class="navbar-links">
         <a th:href="@{/}" class="navbar-link">Hjem</a>
-        <a th:href="@{/cat/cat-list}" class="navbar-link">Se katte</a>
-        <a th:href="@{/user/user-list}" class="navbar-link">Medlemsliste</a>
+        <a th:href="@{/cat/catList}" class="navbar-link">Se katte</a>
+        <a th:href="@{/user/userList}" class="navbar-link">Medlemsliste</a>
         <a th:href="@{/}" class="navbar-link">Turneringer</a>
 
         <th:block th:if="${session.currentUser != null}">

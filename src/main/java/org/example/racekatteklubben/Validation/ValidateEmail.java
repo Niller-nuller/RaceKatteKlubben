@@ -3,7 +3,7 @@ package org.example.racekatteklubben.Validation;
 import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.exception.EmailValidationException;
 import org.example.racekatteklubben.exception.AuthException;
-import org.example.racekatteklubben.exception.ValidatorException;
+import org.example.racekatteklubben.exception.ValidationException;
 import org.springframework.stereotype.Component;
 
 @Component("EMAIL")
@@ -20,7 +20,7 @@ public class ValidateEmail implements ValidationStrategy {
             throw new AuthException("The login request is empty");
         }
         if(!(object instanceof Auth auth)){
-            throw new ValidatorException("Wrong Exception thrown please contact an administrator");
+            throw new ValidationException("Wrong Exception thrown please contact an administrator");
         }
         if(auth.getEmail() == null || auth.getEmail().isEmpty()){
             throw new EmailValidationException("Email is empty");

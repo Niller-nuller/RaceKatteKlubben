@@ -17,6 +17,30 @@ public class CatRepository implements ICatRepository {
     public CatRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+    @Override
+    public List<Cat> requestCatListPopulate(){
+        String sql = "SELECT * FROM cats ORDER BY Name ASC";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Cat(
+                        rs.getLong("CatId"),
+                        rs.getString("name"),
+                        Gender.valueOf(rs.getString("gender")),
+                        rs.getInt("age"),
+                        rs.getTimestamp("dateOfBirth") != null ? rs.getDate("dateOfBirth").toLocalDate(): null,
+                        rs.getBoolean("isDead"),
+                        rs.getTimestamp("dateOfDeath") != null ? rs.getDate("dateOfDeath").toLocalDate(): null,
+                        rs.getString("furColorCode"),
+                        rs.getString("patternCode"),
+                        rs.getString("breedCode"),
+                        rs.getString("eyeCode"),
+                        rs.getString("fullCode"),
+                        rs.getLong("ownerId"),
+                        rs.getLong("breederId"),
+                        rs.getLong("fatherId"),
+                        rs.getLong("motherId")
+                )
+        );
+    }
 
     private List<Cat> createCatList(String sql, long id){
         return jdbcTemplate.query(sql, (rs, rowNum) ->

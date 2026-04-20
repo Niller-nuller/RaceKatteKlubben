@@ -19,10 +19,10 @@ public class ReadCatController {
         this.catService = catService;
     }
 
-    @GetMapping("/cat-list")
+    @GetMapping("/catList")
     public String catList(Model model,@RequestParam(value = "criteria", required = false, defaultValue = "") String criteria){
-        model.addAttribute("catList", catService.handleGetFullListOfCats(criteria));
         model.addAttribute("searchCriteria", criteria);
+        model.addAttribute("catList", catService.handleReturnCatList(criteria));
         return "cat-list";
     }
 }

@@ -3,7 +3,7 @@ package org.example.racekatteklubben.Validation;
 import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.exception.PasswordValidationException;
 import org.example.racekatteklubben.exception.AuthException;
-import org.example.racekatteklubben.exception.ValidatorException;
+import org.example.racekatteklubben.exception.ValidationException;
 import org.springframework.stereotype.Component;
 
 
@@ -20,7 +20,7 @@ public class ValidatePassword implements ValidationStrategy {
             throw new AuthException("The login request is empty");
         }
         if(!(object instanceof Auth auth)){
-            throw new ValidatorException("Wrong Exception thrown please contact an administrator");
+            throw new ValidationException("Wrong Exception thrown please contact an administrator");
         }
         if(auth.getPassword() == null || auth.getPassword().isEmpty()){
             throw new PasswordValidationException("Password is empty");

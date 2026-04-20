@@ -12,8 +12,7 @@ public interface IUserRepository {
     Auth logUserIn(Auth userAuth);
     void createUser(User user, Auth userAuth);
     Auth getUserLoginId(Auth userAuth);
-    List<User> requestFullUserList(String sql, String safeCriteria);
-    List<User> requestFullFilteredUserList(String criteria);
+    List<User> requestUserListPopulate();
     User getUserFromAuth(Auth userAuth);
     void updateUser(User user);
     void requestDeleteUser(User user);

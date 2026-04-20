@@ -2,25 +2,26 @@ package org.example.racekatteklubben.use_case;
 
 import org.example.racekatteklubben.Validation.ValidationStrategy;
 import org.example.racekatteklubben.Validation.ValidationType;
-import org.example.racekatteklubben.exception.ValidatorException;
+import org.example.racekatteklubben.exception.ValidationException;
 import org.springframework.stereotype.Service;
 
-import javax.xml.validation.Validator;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ValidationService {
 
-    private final Map<String, ValidationStrategy> validatorMap;
+    private final Map<ValidationType, ValidationStrategy> validatorMap;
 
-    public ValidationService(Map<String, ValidationStrategy> validatorMap) {
-        this.validatorMap = validatorMap;
+    public ValidationService(List<ValidationStrategy> strategies) {
+        this.validatorMap = strategies.stream().collect(Collectors.toMap(ValidationStrategy::getValidationType, validation -> validation));
     }
 
     public void validate(ValidationType type, Object object) {
         ValidationStrategy validator = validatorMap.get(type.name());
         if (validator == null) {
-            throw new ValidatorException("No validate found for type" + type);
+            throw new ValidationException("No validate found for type" + type);
         }
         validator.validate(object);
     }

@@ -14,4 +14,5 @@ public interface ICatRepository {
     Cat findById(long id);
     void updateCat(Cat cat);
     void annihilateCat(long id, long ownerId);
+    List<Cat> requestCatListPopulate();
 }

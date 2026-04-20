@@ -5,7 +5,6 @@ import org.example.racekatteklubben.entity.Auth;
 import org.example.racekatteklubben.entity.Gender;
 import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -76,22 +75,17 @@ public class UserRepository implements IUserRepository {
                 (rs, rowNum) -> new Auth(rs.getLong("CredentialsId"), rs.getString("Email"), rs.getString("Password")), userAuth.getEmail()
         );
     }
+
     @Override
-    public List<User> requestFullUserList(String sql, String safeCriteria){
+    public List<User> requestUserListPopulate(){
+        String sql = "SELECT * FROM users LEFT JOIN credentials on users.CredentialsId = credentials.CredentialsId ORDER BY users.Name ASC";
         return jdbcTemplate.query(sql,(rs, rowNum) ->
                 new User(rs.getLong("UserId"),
                         rs.getString("Name"),
                         rs.getString("LastName"),
                         Gender.valueOf(rs.getString("Gender")),
-                        new Auth(rs.getString("Email"), rs.getString("Password"))),safeCriteria);
+                        new Auth(rs.getString("Email"), rs.getString("Password"))));
     }
-    @Override
-    public List<User> requestFullFilteredUserList(String criteria){
-        String sql = "SELECT * FROM Users LEFT JOIN Credentials on Users.credentialsId = Credentials.CredentialsId WHERE name Like ?";
-        String safeCriteria = "%" + criteria + "%";
-        return requestFullUserList(sql, safeCriteria);
-    }
-
     @Override
     public void requestDeleteUser(User user){
         String deleteCatsSql = "DELETE FROM Cats WHERE OwnerId = ?";
