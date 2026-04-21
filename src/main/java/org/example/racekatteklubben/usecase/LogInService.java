@@ -1,7 +1,5 @@
-package org.example.racekatteklubben.use_case;
+package org.example.racekatteklubben.usecase;
 
-import jakarta.servlet.http.HttpSession;
-import org.example.racekatteklubben.Validation.ValidationType;
 import org.example.racekatteklubben.entity.AuthObject;
 import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;

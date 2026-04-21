@@ -2,10 +2,8 @@ package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.racekatteklubben.entity.User;
-import org.example.racekatteklubben.infrastrcture.UserRepository;
-import org.example.racekatteklubben.use_case.UserService;
+import org.example.racekatteklubben.usecase.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

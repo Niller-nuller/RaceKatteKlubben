@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.example.racekatteklubben.entity.AuthObject;
 import org.example.racekatteklubben.entity.Gender;
 import org.example.racekatteklubben.entity.User;
-import org.example.racekatteklubben.use_case.UserService;
+import org.example.racekatteklubben.usecase.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

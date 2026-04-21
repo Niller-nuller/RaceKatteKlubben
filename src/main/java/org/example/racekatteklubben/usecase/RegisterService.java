@@ -1,9 +1,7 @@
-package org.example.racekatteklubben.use_case;
+package org.example.racekatteklubben.usecase;
 
-import org.example.racekatteklubben.Validation.ValidationType;
 import org.example.racekatteklubben.entity.AuthObject;
 import org.example.racekatteklubben.entity.Gender;
-import org.example.racekatteklubben.entity.RegisterWrapper;
 import org.example.racekatteklubben.entity.User;
 
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;

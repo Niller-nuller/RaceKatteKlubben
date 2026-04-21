@@ -10,7 +10,7 @@ public class User {
     private AuthObject usersAuth;
     private List<Cat> usersCats;
 
-    public User(){}
+
     public User(String name,String lastName, Gender gender, AuthObject usersAuth) {
         this.name = name;
         this.lastName = lastName;
@@ -65,4 +65,17 @@ public class User {
     }
     public List<Cat> getUsersCats() {return usersCats;}
     public void setUsersCats(List<Cat> usersCats) {this.usersCats = usersCats;}
+
+    private void validateName(String name){
+
+    }
+    private void validateLastName(String lastName){
+
+    }
+    private void validateGender(Gender gender){
+
+    }
+    private void validateUsersAuth(AuthObject usersAuth){
+
+    }
 }

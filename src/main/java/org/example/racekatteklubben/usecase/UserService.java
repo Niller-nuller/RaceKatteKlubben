@@ -1,26 +1,26 @@
-package org.example.racekatteklubben.use_case;
+package org.example.racekatteklubben.usecase;
 
 import org.example.racekatteklubben.entity.AuthObject;
 import org.example.racekatteklubben.entity.User;
 import org.example.racekatteklubben.entity.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class UserService {
     private final ValidationService validationService;
     private final IUserRepository userRepository;
     private final List<User> fullServerUserList;
+    private final List<User> fullFilteredUserList;
 
     @Autowired
-    public UserService(ValidationService validationService ,IUserRepository userRepository,List<User> fullServerUserList) {
+    public UserService(ValidationService validationService ,IUserRepository userRepository,List<User> fullServerUserList,List<User> fullFilteredUserList) {
         this.validationService = validationService;
         this.userRepository = userRepository;
         this.fullServerUserList = fullServerUserList;
+        this.fullFilteredUserList = fullFilteredUserList;
     }
 
     public List<User> handleReturnFullUserList(String criteria){
@@ -30,12 +30,15 @@ public class UserService {
         if(criteria.isBlank()){
             return fullServerUserList;
         }
-        return fullServerUserList.stream()
-                .filter(user -> user.getName()
-                        .toLowerCase()
-                        .contains(criteria.toLowerCase()))
-                .sorted(Comparator.comparing(User::getName))
-                .collect(Collectors.toList());
+        if(!fullFilteredUserList.isEmpty()){
+            fullFilteredUserList.clear();
+        }
+        for(User user : fullServerUserList){
+            if(user.getName().contains(criteria)){
+                fullFilteredUserList.add(user);
+            }
+        }
+        return fullServerUserList;
     }
 
     public User getUserFromAuth(AuthObject auth) {

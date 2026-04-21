@@ -1,6 +1,5 @@
-package org.example.racekatteklubben.use_case;
+package org.example.racekatteklubben.usecase;
 
-import org.example.racekatteklubben.Validation.ValidationType;
 import org.example.racekatteklubben.entity.Cat;
 import org.example.racekatteklubben.entity.interfaces.ICatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,13 @@ public class CatService {
     private final ICatRepository catRepository;
     private final ValidationService validationService;
     private final List<Cat> fullServerCatList;
+    private final List<Cat> fullFilteredListCatList;
     @Autowired
-    public CatService(ICatRepository catRepository, ValidationService validationService,List<Cat> fullServerCatList) {
+    public CatService(ICatRepository catRepository, ValidationService validationService,List<Cat> fullServerCatList, List<Cat> fullFilteredListCatList) {
         this.catRepository = catRepository;
         this.validationService = validationService;
         this.fullServerCatList = fullServerCatList;
+        this.fullFilteredListCatList = fullFilteredListCatList;
     }
 
     public List<Cat> handleReturnCatList(String criteria){
@@ -31,12 +32,16 @@ public class CatService {
         if(criteria.isEmpty()){
             return fullServerCatList;
         }
-        return fullServerCatList.stream()
-                .filter(cat -> cat.getName()
-                        .toLowerCase()
-                        .contains(criteria.toLowerCase()))
-                .sorted(Comparator.comparing(Cat::getName))
-                .collect(Collectors.toList());
+        if(!fullFilteredListCatList.isEmpty()){
+            fullFilteredListCatList.clear();
+        }
+        for(Cat cats : fullServerCatList){
+            if(cats.getName().contains(criteria)){
+                fullFilteredListCatList.add(cats);
+            }
+
+        }
+        return fullFilteredListCatList;
     }
     public void createCat(Cat cat, long ownerId) {
         cat.setOwnerId(ownerId);

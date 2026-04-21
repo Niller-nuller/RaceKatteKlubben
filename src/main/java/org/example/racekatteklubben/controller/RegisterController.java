@@ -2,8 +2,7 @@ package org.example.racekatteklubben.controller;
 
 
 import org.example.racekatteklubben.entity.Gender;
-import org.example.racekatteklubben.entity.RegisterWrapper;
-import org.example.racekatteklubben.use_case.RegisterService;
+import org.example.racekatteklubben.usecase.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

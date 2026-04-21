@@ -1,4 +1,4 @@
-package org.example.racekatteklubben.use_case;
+package org.example.racekatteklubben.usecase;
 
 import org.example.racekatteklubben.Validation.ValidationStrategy;
 import org.example.racekatteklubben.Validation.ValidationType;

@@ -3,7 +3,7 @@ package org.example.racekatteklubben.controller;
 import jakarta.servlet.http.HttpSession;
 import org.example.racekatteklubben.exception.EmailValidationException;
 import org.example.racekatteklubben.exception.PasswordValidationException;
-import org.example.racekatteklubben.use_case.LogInService;
+import org.example.racekatteklubben.usecase.LogInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

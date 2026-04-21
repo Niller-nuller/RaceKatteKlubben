@@ -2,7 +2,7 @@ package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.racekatteklubben.entity.User;
-import org.example.racekatteklubben.use_case.CatService;
+import org.example.racekatteklubben.usecase.CatService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

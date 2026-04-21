@@ -1,6 +1,6 @@
 package org.example.racekatteklubben.controller;
 
-import org.example.racekatteklubben.use_case.CatService;
+import org.example.racekatteklubben.usecase.CatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
