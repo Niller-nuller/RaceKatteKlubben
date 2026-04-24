@@ -7,41 +7,30 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CatService {
     private final ICatRepository catRepository;
     private final ValidationService validationService;
     private final List<Cat> fullServerCatList;
-    private final List<Cat> fullFilteredListCatList;
+
     @Autowired
-    public CatService(ICatRepository catRepository, ValidationService validationService,List<Cat> fullServerCatList, List<Cat> fullFilteredListCatList) {
+    public CatService(ICatRepository catRepository, ValidationService validationService,List<Cat> fullServerCatList) {
         this.catRepository = catRepository;
         this.validationService = validationService;
         this.fullServerCatList = fullServerCatList;
-        this.fullFilteredListCatList = fullFilteredListCatList;
     }
 
     public List<Cat> handleReturnCatList(String criteria){
         if(fullServerCatList.isEmpty()){
             fullServerCatList.addAll(catRepository.requestCatListPopulate());
-        }
-        if(criteria.isEmpty()){
             return fullServerCatList;
         }
-        if(!fullFilteredListCatList.isEmpty()){
-            fullFilteredListCatList.clear();
+        if(!criteria.isEmpty()){
+            return fullServerCatList.stream().filter(cat -> cat.getName().contains(criteria)).toList();
         }
-        for(Cat cats : fullServerCatList){
-            if(cats.getName().contains(criteria)){
-                fullFilteredListCatList.add(cats);
-            }
-
-        }
-        return fullFilteredListCatList;
+        return fullServerCatList;
     }
     public void createCat(Cat cat, long ownerId) {
         cat.setOwnerId(ownerId);
@@ -99,9 +88,5 @@ public class CatService {
     public void annihilateCat(long id, long ownerId) {
         catRepository.annihilateCat(id, ownerId);
 
-    }
-
-    public void validateHaritage(long dadId, long momId){
-        
     }
 }
